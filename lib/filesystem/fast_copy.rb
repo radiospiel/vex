@@ -31,18 +31,18 @@ FileUtils.extend FileUtils::FastCopy
 
 module FileUtils::FastCopy::Etest
   def test_fast_copy
-    assert File.exist?("fixtures/somedata.dat")
+    assert File.exist?(__FILE__)
     File.unlink("tmp/somedata.dat") if File.exist?("tmp/somedata.dat")
 
     assert !File.exist?("tmp/somedata.dat")
-    FileUtils.fast_copy "fixtures/somedata.dat", "tmp/somedata.dat"
-    assert_equal File.size("tmp/somedata.dat"), File.size("fixtures/somedata.dat")
+    FileUtils.fast_copy __FILE__, "tmp/somedata.dat"
+    assert_equal File.read("tmp/somedata.dat"), File.read(__FILE__)
 
     File.unlink("tmp/somedata.dat")
     File.touch("tmp/somedata.dat")
-    assert_not_equal File.size("tmp/somedata.dat"), File.size("fixtures/somedata.dat")
-    FileUtils.fast_copy "fixtures/somedata.dat", "tmp/somedata.dat"
-    assert_equal File.size("tmp/somedata.dat"), File.size("fixtures/somedata.dat")
+    assert_not_equal File.size("tmp/somedata.dat"), File.size(__FILE__)
+    FileUtils.fast_copy __FILE__, "tmp/somedata.dat"
+    assert_equal File.size("tmp/somedata.dat"), File.size(__FILE__)
   end
 
   def test_fast_copy_failures
@@ -55,7 +55,7 @@ module FileUtils::FastCopy::Etest
     }
 
     assert_raise(Errno::ENOENT) {  
-      FileUtils.fast_copy "fixtures/somedata.dat", "tmp/nonexisting/dir"
+      FileUtils.fast_copy __FILE__, "tmp/nonexisting/dir"
     }
   end
 end

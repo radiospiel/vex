@@ -42,17 +42,17 @@ FileUtils.extend FileUtils::TmpFile
 
 module FileUtils::TmpFile::Etest
   def test_tmpfile
-    assert File.exist?("fixtures/somedata.dat")
+    assert File.exist?(__FILE__)
 
     # so something successfully via a tmp file
-    FileUtils.fast_copy "fixtures/somedata.dat", "tmp/copy.dat"
+    FileUtils.fast_copy __FILE__, "tmp/copy.dat"
     assert File.exist?("tmp/copy.dat")
     
     FileUtils.tmpfile "tmp/copy.dat" do |dest|
       false
     end
 
-    assert_equal File.size("fixtures/somedata.dat"), File.size("tmp/copy.dat")
+    assert_equal File.size(__FILE__), File.size("tmp/copy.dat")
 
     FileUtils.tmpfile "tmp/copy.dat" do |dest|
       File.write(dest, "hey")
@@ -60,15 +60,15 @@ module FileUtils::TmpFile::Etest
 
     assert_equal 3, File.size("tmp/copy.dat")
 
-    FileUtils.fast_copy "fixtures/somedata.dat", "tmp/copy.dat"
-    assert_equal File.size("fixtures/somedata.dat"), File.size("tmp/copy.dat")
+    FileUtils.fast_copy __FILE__, "tmp/copy.dat"
+    assert_equal File.size(__FILE__), File.size("tmp/copy.dat")
 
     FileUtils.tmpfile "tmp/copy.dat" do |dest|
       File.write(dest, "hey")
       false
     end
     
-    assert_equal File.size("fixtures/somedata.dat"), File.size("tmp/copy.dat")
+    assert_equal File.size(__FILE__), File.size("tmp/copy.dat")
 
     FileUtils.tmpfile "tmp/copy.dat" do |dest|
       File.write(dest, "hey")

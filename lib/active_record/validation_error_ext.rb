@@ -35,27 +35,3 @@ class ActiveRecord::Errors
   include Unique
   alias_method_chain :add, :unique_messages
 end
-
-module ActiveRecord::Errors::Unique::Etest
-  def test_single_adds
-    obj = Programme.new
-
-    obj.errors.add "x", "xxx"
-    assert_kind_of(String, obj.errors["x"])
-
-    obj.errors.add "x", "xxx"
-    assert_kind_of(String, obj.errors["x"])
-
-    obj.errors.add "x", "yyyy"
-    assert_equal(%w(xxx yyyy), obj.errors["x"])
-
-    obj.errors.add "x", "yyyy"
-    assert_equal(%w(xxx yyyy), obj.errors["x"])
-
-    obj.errors.add "x", "xxx"
-    assert_equal(%w(xxx yyyy), obj.errors["x"])
-
-    obj.errors.add "x", "zzz"
-    assert_equal(%w(xxx yyyy zzz), obj.errors["x"])
-  end
-end

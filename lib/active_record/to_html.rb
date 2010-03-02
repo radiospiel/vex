@@ -15,22 +15,3 @@ module ActiveRecord::ToHtml
     end
   end
 end
-
-module ActiveRecord::ToHtml::Etest
-  def test_to_html
-    feed = Feed.create! :keyword => "test", :language => "language"
-
-    html = <<HTML
-<div class='feed'>
-  <div class='data' nil="true"></div>
-  <div class='id' type="integer">#{feed.id}</div>
-  <div class='keyword'>test</div>
-  <div class='language'>language</div>
-</div>
-HTML
-    fhtml = feed.to_html :only => %w(data id keyword language)
-
-    assert_equal(html, fhtml)
-  end
-end
-
