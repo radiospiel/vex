@@ -11,6 +11,8 @@ module Array::EachBatch
   end
 end
 
+Array.send :include, Array::EachBatch
+
 module Array::Cross::Etest
   def test_each_batch
     r = []

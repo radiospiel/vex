@@ -43,6 +43,10 @@ module Hash::Cross
   end
 end
 
+class Hash
+  include Cross
+end
+
 module Hash::Cross::Etest
   def assert_equal_sets(a, b)
     return assert_equal_sets(Set.new(a), b) unless a.is_a?(Set)

@@ -5,5 +5,13 @@ task :test do
 end
 
 task :rcov do
-  sh "cd test; rcov -o coverage -i /vex/ -x /vex/test/ -x ^lib/ -x /gems/ -x ^test.rb$ --html  -T test.rb"
+  sh "cd test; rcov -o ../coverage -x ruby/.*/gems -x ^test.rb test.rb"
 end
+
+task :rdoc do
+  sh "rdoc -o doc/rdoc"
+end
+
+Dir["#{File.dirname(__FILE__)}/tasks/*.rake"].sort.each { |ext| 
+  puts ext
+  load ext }

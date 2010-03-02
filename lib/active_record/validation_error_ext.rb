@@ -1,12 +1,12 @@
 module ActiveRecord::ValidationErrorExt
 
-  def self.init
+  def self.included(base)
     ActiveRecord::Errors.send :include, ErrorsExt
     ActiveRecord::Errors.alias_method_chain :add, :unique_messages
   end
   
   # better error reporting: this is useful mainly for development cycles, as
-  # it adds an error message only one
+  # it adds an error message only once
   module ErrorsExt
     def delete(entry)
       @errors.delete entry.to_s
@@ -36,7 +36,6 @@ module ActiveRecord::ValidationErrorExt
     end
   end
 end
-
 
 module ActiveRecord::ValidationExt::Etest
   def test_single_adds

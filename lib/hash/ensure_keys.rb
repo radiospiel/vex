@@ -6,6 +6,10 @@ module Hash::EnsureKeys
   end
 end
 
+class Hash
+  include EnsureKeys
+end
+
 module Hash::EnsureKeys::Etest
   def test_ensure_keys
     h = { :a => "a" }

@@ -1,1 +1,0 @@
-Net.extend Net::HTTPExt

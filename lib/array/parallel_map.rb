@@ -47,6 +47,8 @@ module Array::ParallelMap
   end
 end
 
+Array.send :include, Array::ParallelMap
+
 module Array::ParallelMap::Etest
   MAX = 1000
 

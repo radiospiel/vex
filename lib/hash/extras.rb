@@ -29,6 +29,9 @@ module Hash::Extras
   end  
 end
 
+class Hash
+  include Extras
+end
 
 module Hash::Extras::Etest
   def test_create

@@ -10,9 +10,6 @@ module ActionController::AutoLoader
     attr :definition
     
     def initialize(*args)
-      #
-      # transform :feed, "comment", :c => "Klass" into
-      #   { ;feed => "Feed", :comment => "Comment", :c => "Klass" }
       @definition = {}
       args.each do |arg|
         case arg

@@ -1,0 +1,14 @@
+Manifest
+Rakefile
+VERSION
+config/dependencies.rb
+config/gem.rb
+config/gem.yml
+init.rb
+lib/blank.rb
+script/console
+script/rebuild
+tasks/echoe.rake
+test/initializers/active_record.rb
+test/initializers/fake_rails.rb
+test/test.rb

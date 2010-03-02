@@ -1,5 +1,3 @@
-# http(s) URLs
-
 require "net/http"
 
 #

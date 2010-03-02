@@ -1,0 +1,7 @@
+description: Vex: some extensions
+url: http://github.com/pboy/vex  
+author: pboy
+email: eno-pboy@open-lab.org  
+ignore_pattern:
+  - "tmp/*"
+  - "**/.*"

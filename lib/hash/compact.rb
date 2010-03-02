@@ -11,6 +11,10 @@ module Hash::Compact
   end
 end
 
+class Hash
+  include Compact
+end
+
 module Hash::Compact::Etest
   def test_compact_no
     h = { 1 => 2 }

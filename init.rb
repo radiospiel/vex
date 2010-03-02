@@ -1,63 +1,35 @@
-require "default_value_for"
+#
+# The initializer for the gem. Runs whenever the gem is loaded.
+#
+# DON'T CHANGE THIS FILE, CHANGE config/gem.rb INSTEAD!
+#
 
-__END__
+gem_root = File.expand_path(File.dirname(__FILE__))
+gem_name = File.basename gem_root
 
-if !defined?(RAILS_ENV)
-  STDERR.puts "Setting up dummy rails environment"
+require "rubygems"
 
-  RAILS_ENV="test"
-  RAILS_ROOT="."
+load "#{gem_root}/config/gem.rb"
+load "#{gem_root}/config/dependencies.rb"
+load "#{gem_root}/lib/#{gem_name}.rb"
 
-  require 'activerecord'
-  require 'active_support'
+dirs = Dir.glob("#{gem_root}/lib/*").sort.select do |dir|
+  File.directory?(dir)
+end.sort
+
+dirs.each do |dir|
+  if File.exists?("#{dir}/__init__.rb")
+    STDERR.puts dir
+    load("#{dir}/__init__.rb")
+  else
+    Dir.glob("#{dir}/*.rb").sort.each do |file|
+      STDERR.puts file
+      load file
+    end
+  end
 end
 
-require "#{File.dirname(__FILE__)}/lib/vex.rb"
-require "sanitize"
-
-#
-# load foreign plugins first.
-Dir.glob("#{File.dirname(__FILE__)}/plugins/*").sort.each do |plugin|
-  # STDERR.puts "Loading #{plugin}"
-
-  Vex.add_path("#{plugin}/lib")
-  require "#{plugin}/init.rb" if File.file?("#{plugin}/init.rb")
+Dir.glob("#{gem_root}/lib/*.rb").sort.each do |file|
+  STDERR.puts file
+  load file
 end
-
-
-#
-# add library path
-Vex.add_path("#{File.dirname(__FILE__)}/lib")
-
-#
-# run initializers
-
-STDERR.print "Initializing vex: "
-
-#
-# load platform fixes
-Vex.require_subdir "#{File.dirname(__FILE__)}/fixes"
-
-#
-# load core extensions
-Vex.require_subdir "#{File.dirname(__FILE__)}/ext"
-
-#
-# run initializers
-Vex.require_subdir "#{File.dirname(__FILE__)}/initializers"
-STDERR.puts
-
-#reloads the environment
-def reload!
-  STDERR.puts "Reloading..."
-  dispatcher = ActionController::Dispatcher.new($stdout)
-  dispatcher.cleanup_application
-  dispatcher.reload_application
-
-  # The folloowing line actually reloads the Ext module,
-  # which results in running the .load! line below. 
-  Vex
-  true
-end
-
-STDERR.puts "\n"

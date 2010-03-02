@@ -1,1 +1,0 @@
-AdvancedLogging.init

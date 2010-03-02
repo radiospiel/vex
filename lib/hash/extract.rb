@@ -1,16 +1,16 @@
 module Hash::Extract
   def extract(*args)
-    extract_translated(:[], *args)
+    extract_mapped(:[], *args)
   end
 
   # i.e. extract_and_delete
   def extract!(*args)
-    extract_translated(:delete, *args)
+    extract_mapped(:delete, *args)
   end
 
   private
 
-  def extract_translated(sym, *args)
+  def extract_mapped(sym, *args)
     translate = args.extract_options!
 
     hash = args.inject({}) do |hash, k|
@@ -28,6 +28,9 @@ module Hash::Extract
   end
 end
 
+class Hash
+  include Extract
+end
 
 module Hash::Extract::Etest
   def test_extract

@@ -56,6 +56,9 @@ module Hash::SimpleAccessMethods
   end
 end
 
+class Hash
+  include SimpleAccessMethods
+end
 
 module Hash::SimpleAccessMethods::Etest
   def test_simple_access

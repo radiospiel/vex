@@ -14,6 +14,8 @@ module Array::Cross
   end
 end
 
+Array.send :include, Array::Cross
+
 module Array::Cross::Etest
   def test_cross
     assert_equal( [[1,1]],                            [1].cross([1])  )
