@@ -1,0 +1,4 @@
+coverage
+test.sqlite3*
+*.pid
+*.lck
