@@ -28,3 +28,5 @@ module ActiveRecord::Each
     Enumerable::Progress::IMPLEMENTATIONS[impl].new(self, self.count)
   end
 end
+
+ActiveRecord::Base.extend ActiveRecord::Each

@@ -2,6 +2,8 @@
 DIRNAME = File.expand_path File.dirname(__FILE__)
 Dir.chdir(DIRNAME)
 
+require "active_record"
+
 #
 # initialize the gem and the test runner
 require '../init'

@@ -55,3 +55,7 @@ module ActiveRecord::FindByExtension
     models
   end
 end
+
+class ActiveRecord::Base
+  extend ActiveRecord::FindByExtension
+end

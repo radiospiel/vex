@@ -1,8 +1,4 @@
 module ActiveRecord::RandomID
-  def self.included(base)    
-    base.extend ClassMethods
-  end
-
   module Generator
     def self.string
       # This puts 40 random bits into a string.
@@ -20,18 +16,20 @@ module ActiveRecord::RandomID
     end
   end
   
-  module ClassMethods
-    def with_random_column(column, generator = :integer)
-      before_validation do |rec|
-        next if rec.send(column)
-        rec.send "#{column}=", ActiveRecord::RandomID::Generator.send(generator)
-      end
-    end
-    
-    def with_random_id(generator = :integer)
-      with_random_column primary_key, generator
+  def with_random_column(column, generator = :integer)
+    before_validation do |rec|
+      next if rec.send(column)
+      rec.send "#{column}=", ActiveRecord::RandomID::Generator.send(generator)
     end
   end
+  
+  def with_random_id(generator = :integer)
+    with_random_column primary_key, generator
+  end
+end
+
+class ActiveRecord::Base
+  extend ActiveRecord::RandomID
 end
 
 module ActiveRecord::RandomID::Etest

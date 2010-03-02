@@ -1,3 +1,5 @@
+__END__
+
 module ActiveRecord::SerializeHash
   def self.included(base)
     base.extend ClassMethods
@@ -60,6 +62,10 @@ module ActiveRecord::SerializeHash
       self.send "#{attr}=", val
     end
   end
+end
+
+class ActiveRecord::Base
+  include ActiveRecord::SerializeHash
 end
 
 module ActiveRecord::SerializeHash::Etest

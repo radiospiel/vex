@@ -87,6 +87,8 @@ module ActiveRecord::LiteTable
   end
 end
 
+ActiveRecord::Base.extend ActiveRecord::LiteTable
+
 module ActiveRecord::LiteTable::Etest
   class TestLiteModel < ActiveRecord::Base
   end

@@ -137,3 +137,7 @@ RUBY
 
   extend Migrations
 end
+
+class ActiveRecord::Base
+  include BelongsToMany
+end
