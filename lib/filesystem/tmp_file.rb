@@ -34,6 +34,8 @@ module FileUtils::TmpFile
   end
 end
 
+FileUtils.extend FileUtils::TmpFile
+
 module FileUtils::TmpFile::Etest
   def test_tmpfile
     assert File.exist?("fixtures/somedata.dat")

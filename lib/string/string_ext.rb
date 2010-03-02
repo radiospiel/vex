@@ -1,3 +1,6 @@
+require "sanitize"
+require "htmlentities"
+
 module StringExt
   def constantize?
     constantize
@@ -11,7 +14,7 @@ module StringExt
   def unhtml
     return self if blank?
     s = Sanitize.clean(self)
-    decode_entities(s)
+    HTMLEntities.new.decode(s)
   end
 
   # truncate :length => 30, :omission => "…"
@@ -77,6 +80,8 @@ module StringExt
     r.join("\n")
   end
 end
+
+String.send :include, StringExt
 
 module StringExt::Etest
   def test_unhtml

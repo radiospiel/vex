@@ -19,17 +19,14 @@ end.sort
 
 dirs.each do |dir|
   if File.exists?("#{dir}/__init__.rb")
-    STDERR.puts dir
     load("#{dir}/__init__.rb")
   else
     Dir.glob("#{dir}/*.rb").sort.each do |file|
-      STDERR.puts file
       load file
     end
   end
 end
 
 Dir.glob("#{gem_root}/lib/*.rb").sort.each do |file|
-  STDERR.puts file
   load file
 end

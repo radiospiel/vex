@@ -31,7 +31,9 @@ class LocalConf < Hash
   end
 
   def self.local_conf
-    @local_conf = nil if Rails.env.development?
+    if defined?(Rails) && Rails.env.development?
+      @local_conf = nil
+    end
     
     @local_conf ||= LocalConf.new("local.yml")
   end

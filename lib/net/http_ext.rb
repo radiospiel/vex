@@ -1,4 +1,9 @@
 require "net/http"
+require "net/https"
+
+module Net::HTTPExt; end
+
+Net.extend Net::HTTPExt
 
 #
 # This adds Net.get, Net.head, Net.post

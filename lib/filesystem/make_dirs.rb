@@ -48,6 +48,7 @@ module Dir::MakeDirs
   end
 end
 
+Dir.extend Dir::MakeDirs
 
 module Dir::MakeDirs::Etest
   def test_mkdirs

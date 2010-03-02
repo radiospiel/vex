@@ -11,7 +11,7 @@ class Socket
   # * when_talking_to: returns my IP when talking to that host.
   
   # do_raise is mainly for test purposes
-  def self.local_ip(when_talking_to = nil, do_raise = false)
+  def self.local_ip(when_talking_to = nil)
     when_talking_to ||= '64.233.187.99'
     begin
       orig, Socket.do_not_reverse_lookup = Socket.do_not_reverse_lookup, true  # turn off reverse DNS resolution temporarily  
@@ -21,7 +21,6 @@ class Socket
         s.addr.last  
       end  
     rescue
-      raise if do_raise
       "127.0.0.1" # not connected to the funny wide web?
     ensure  
       Socket.do_not_reverse_lookup = orig  
@@ -29,7 +28,7 @@ class Socket
   end
 
   def self.online?
-    local_ip("google.com") != "127.0.0.1"
+    local_ip != "127.0.0.1"
   end
 end
 
@@ -41,16 +40,4 @@ module Socket::Etest
       assert(local_net.include?(IPAddr.new(Socket.local_ip(ip))))
     end
   end
-
-  def test_returns_127_invalid
-    UDPSocket.stubs(:open).raises(RuntimeError)
-
-    assert_raises(RuntimeError) {
-      Socket.local_ip("whatever", true)
-    }
-    
-    assert_equal("127.0.0.1", Socket.local_ip("whatever"))
-  end
-
-  # TODO: how can we test that otherwise??
 end

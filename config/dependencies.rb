@@ -3,3 +3,4 @@
 require 'nokogiri'
 require 'openssl'
 
+require 'etest'

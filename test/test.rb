@@ -2,8 +2,6 @@
 DIRNAME = File.expand_path File.dirname(__FILE__)
 Dir.chdir(DIRNAME)
 
-ETEST_TEST=true
-
 #
 # initialize the gem and the test runner
 require '../init'
@@ -16,6 +14,9 @@ require "#{DIRNAME}/initializers/active_record.rb"
 
 # ---------------------------------------------------------------------
 
+require 'mocha'
+
+
 begin
   require 'minitest-rg'
 rescue MissingSourceFile
@@ -25,6 +26,7 @@ end
 
 #
 # run tests
+dlog "etest #{::Etest::VERSION}"
 
-Etest.autorun if defined?(Etest)
-MiniTest::Unit.autorun
+Etest.autorun if defined?(::Etest)
+# MiniTest::Unit.autorun

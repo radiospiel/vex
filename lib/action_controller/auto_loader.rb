@@ -91,12 +91,14 @@ module ActionController::AutoLoader::Etest
   end
 
   def setup
-    Feed.stubs(:find).with(1).returns( "feed-1" )
-    Feed.stubs(:find).with(2).returns( "feed-2" )
-    Feed.stubs(:[]).with("1").returns( "feed-1" )
-    Feed.stubs(:[]).with("2").returns( "feed-2" )
-    Feed.stubs(:[]).with("one").returns( "feed-1" )
-    Feed.stubs(:[]).with("two").returns( "feed-2" )
+    require "mocha"
+    
+    Feed.expect(:find, "feed-1", 1)
+    Feed.expect(:find, "feed-2", 2)
+    Feed.expect(:[], "feed-1", 1)
+    Feed.expect(:[], "feed-2", 2)
+    Feed.expect(:[], "feed-1", "one")
+    Feed.expect(:[], "feed-2", "two")
 
     @filter = Filter.new "feed", :p => "Feed"
   end
