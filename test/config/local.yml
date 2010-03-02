@@ -1,0 +1,8 @@
+development:
+  fast_tests: true
+
+test:
+  fast_tests: false
+
+production:
+  fast_tests: true

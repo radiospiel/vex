@@ -1,0 +1,4 @@
+ads: false
+prototype_url: http://ajax.googleapis.com/ajax/libs/prototype/1.6.0.3
+scriptaculous_url: http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.2
+dont_overwrite_me: "dont_overwrite_me"

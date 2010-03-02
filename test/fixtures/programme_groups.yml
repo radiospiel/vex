@@ -1,0 +1,50 @@
+# == Schema Information
+# Schema version: 55
+#
+# Table name: programme_groups
+#
+#  id                 :integer(11)   not null, primary key
+#  title              :string(255)   default(""), not null
+#  sub_title          :string(255)   default(""), not null
+#  synopsis           :text          default(""), not null
+#  created_at         :datetime      
+#  updated_at         :datetime      
+#  user_id            :integer(11)   
+#  company_id         :integer(11)   
+#  programme_count    :integer(11)   default(0), not null
+#
+
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+first:
+  id:                 1
+  title:              "First Programme Group"
+  synopsis:           .... und hier die Synopsis dieser Programme Groupe
+  user_id:            1
+  company_id:         1
+  
+second:
+  id:                 2
+  title:              "Second Programme Group"
+  synopsis:           ... Synopsis for the second program group
+  user_id:            1
+  company_id:         1
+
+third:
+  id:                 3
+  title:              "Third Programme Group"
+  synopsis:           ... Synopsis for the third program group
+  user_id:            1
+  company_id:         1
+  
+duplicate:
+  id:                 4
+  title:              "Dapliket Brokramkrup"
+  synopsis:           "Dapliket Programme Group Synopsis"
+  company_id:         1
+
+existing:
+  id:                 5
+  title:              "Existing Programme Group"
+  synopsis:           "Synopsis of the already existing Programme Group"
+  user_id:            2
+  company_id:         1

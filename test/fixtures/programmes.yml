@@ -1,0 +1,653 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+first:
+  id: 1
+  content_unit_number: RBL100000385-EN
+  identifier_isbn: 'ISBN 1-59059-752-4'
+  title: Red Bull Big Wave Africa
+  year_of_production: 1972
+  format_id: 8
+  editor_id: 2
+  company_id: 1
+  episode_no: 4
+  text_language_id: 139
+  director: 'Kermit, the Frog'
+  copyright_holder: 'Muppets'
+  run_time: 3600
+  synopsis: 'this is a synopsis'
+  created_at: <%= 5.days.ago.to_s :db %>
+  updated_at: <%= 5.days.ago.to_s :db %>
+another:
+  id: 2
+  identifier_isbn: 'ISBN 1-59059-752-4'
+  content_unit_number: RBL100000387-EN
+  title: Red Bull Big Wave Africa_2
+  year_of_production: 1972
+  format_id: 8
+  editor_id: 2
+  company_id: 1
+  episode_no: 1
+  programme_group_id: 1
+  text_language_id: 139
+  director: 'Kermit, the Frog'
+  copyright_holder: 'Muppets'
+  run_time: 3600
+  synopsis: 'this is a synopsis'
+  created_at: <%= 5.days.ago.to_s :db %>
+  updated_at: <%= 5.days.ago.to_s :db %>
+evil_programme:
+  id: 3
+  identifier_isbn: 'ISBN 1-59059-752-4'
+  content_unit_number: RBL10000666-EN
+  title: Evil Programme
+  year_of_production: 1972
+  format_id: 7
+  editor_id: 2
+  company_id: 2
+  text_language_id: 139
+  director: 'Kermit, the Frog'
+  copyright_holder: 'Muppets'
+  run_time: 3600
+  year_of_production: '1992'
+  synopsis: 'this is a synopsis'
+  created_at: <%= 5.days.ago.to_s :db %>
+  updated_at: <%= 5.days.ago.to_s :db %>
+valid_incomplete:
+  id: 4
+  identifier_isbn: 'ISBN 1-59059-752-4'
+  content_unit_number: RBL100000387-EN
+  title: Red Bull Big Wave Africa2
+  year_of_production: 1972
+  format_id: 2
+  editor_id: 2
+  company_id: 1
+  text_language_id: 139
+  director: 'Kermit, the Frog'
+  copyright_holder: 'Muppets'
+  run_time: 3600
+  year_of_production: '1992'
+  synopsis: 'this is a synopsis'
+  created_at: <%= 5.days.ago.to_s :db %>
+  updated_at: <%= 5.days.ago.to_s :db %>
+complete:
+  id: 5
+  identifier_isbn: 'ISBN 1-59059-752-4'
+  content_unit_number: RBL100000387-EN
+  title: Complete Red Bull Big Wave Africa2
+  year_of_production: 1972
+  format_id: 7
+  editor_id: 2
+  company_id: 1
+  status_id: 2
+  text_language_id: 139
+  director: 'Kermit, the Frog'
+  copyright_holder: 'Muppets'
+  run_time: 3600
+  year_of_production: '1992'
+  synopsis: 'this is a synopsis'
+  created_at: <%= 5.days.ago.to_s :db %>
+  updated_at: <%= 5.days.ago.to_s :db %>
+  customer_viewed_counter: 1111
+  
+nested_format1:
+  id: 6
+  identifier_isbn: 'ISBN 1-59059-752-4'
+  content_unit_number: RBL100000387-EN
+  title: Complete Red Bull Big Wave Africa2
+  year_of_production: 1972
+  format_id: 3
+  editor_id: 2
+  company_id: 3
+  status_id: 2
+  text_language_id: 139
+  director: 'Kermit, the Frog'
+  copyright_holder: 'Muppets'
+  run_time: 3600
+  year_of_production: '1992'
+  synopsis: 'this is a synopsis'
+  created_at: <%= 5.days.ago.to_s :db %>
+  updated_at: <%= 5.days.ago.to_s :db %>
+nested_format2:
+  id: 7
+  identifier_isbn: 'ISBN 1-59059-752-4'
+  content_unit_number: RBL100000387-EN
+  title: Complete Red Bull Big Wave Africa2
+  year_of_production: 1972
+  format_id: 4
+  editor_id: 2
+  company_id: 3
+  status_id: 2
+  text_language_id: 139
+  director: 'Kermit, the Frog'
+  copyright_holder: 'Muppets'
+  run_time: 3600
+  year_of_production: '1992'
+  synopsis: 'this is a synopsis'
+  created_at: <%= 5.days.ago.to_s :db %>
+  updated_at: <%= 5.days.ago.to_s :db %>
+nested_format2:
+  id: 8
+  identifier_isbn: 'ISBN 1-59059-752-4'
+  content_unit_number: RBL100000387-EN
+  title: Complete Red Bull Big Wave Africa2
+  year_of_production: 1972
+  format_id: 5
+  editor_id: 2
+  company_id: 3
+  status_id: 2
+  text_language_id: 139
+  director: 'Kermit, the Frog'
+  copyright_holder: 'Muppets'
+  run_time: 3600
+  year_of_production: '1992'
+  synopsis: 'this is a synopsis'
+  created_at: <%= 5.days.ago.to_s :db %>
+  updated_at: <%= 5.days.ago.to_s :db %>
+nested_format3:
+  id: 9
+  identifier_isbn: 'ISBN 1-59059-752-4'
+  content_unit_number: RBL100000387-EN
+  title: Complete Red Bull Big Wave Africa2
+  year_of_production: 1972
+  format_id: 6
+  editor_id: 2
+  company_id: 1
+  status_id: 2
+  text_language_id: 139
+  director: 'Kermit, the Frog'
+  copyright_holder: 'Muppets'
+  run_time: 3600
+  year_of_production: '1992'
+  synopsis: 'this is a synopsis'
+  created_at: <%= 5.days.ago.to_s :db %>
+  updated_at: <%= 5.days.ago.to_s :db %>
+
+owned_by_supplier:
+  id: 20
+  content_unit_number: RBL100000385-EN
+  identifier_isbn: 'ISBN 1-59059-752-4'
+  title: SupplierProgramme
+  year_of_production: 1972
+  format_id: 2  
+  editor_id: 1
+  company_id: 4
+  episode_no: 3
+  text_language_id: 139
+  director: 'Kermit, the Frog'
+  copyright_holder: 'Muppets'
+  run_time: 3600
+  synopsis: 'this is a synopsis'
+  created_at: <%= 5.days.ago.to_s :db %>
+  updated_at: <%= 5.days.ago.to_s :db %>
+
+verified:
+  id: 21
+  identifier_isbn: 'ISBN 1-59059-752-4'
+  content_unit_number: RBL100000387-EN
+  title: Complete Red Bull Big Wave Africa2
+  year_of_production: 1972
+  format_id: 5
+  editor_id: 2
+  company_id: 1
+  status_id: 4
+  explicit: false
+  publisher_id: 4
+  publisher_name: "Kathrin Manager"
+  published_at: <%= 4.days.ago.to_s :db %>
+  text_language_id: 139
+  director: 'Kermit, the Frog'
+  copyright_holder: 'Muppets'
+  run_time: 3600
+  synopsis: 'this is a synopsis'
+  customer_viewed_counter: 100
+  created_at: <%= 5.days.ago.to_s :db %>
+  updated_at: <%= 5.days.ago.to_s :db %>
+
+owned_by_evil_corporation:
+  id: 22
+  identifier_isbn: 'ISBN 1-59059-752-4'
+  content_unit_number: RBL100000666-EN
+  title: Evil Monsters In The Garden
+  year_of_production: 2007
+  format_id: 6
+  editor_id: 2
+  company_id: 2
+  status_id: 4
+  explicit: false
+  text_language_id: 139
+  director: 'Söze, Keyser'
+  copyright_holder: 'The usual suspects...'
+  run_time: 3600
+  year_of_production: '1992'
+  synopsis: 'this is an eeeevil synopsis'
+  publisher_id: 2
+  publisher_name: "Zach The Zombie"
+  published_at: <%= 4.days.ago.to_s :db %>
+  created_at: <%= 5.days.ago.to_s :db %>
+  updated_at: <%= 5.days.ago.to_s :db %>
+  
+another_verified:
+  id: 23
+  content_unit_number: RBL100000487-EN
+  title: "23 - Nichts funktioniert wie es soll"
+  year_of_production: 1999
+  format_id: 5
+  editor_id: 2
+  company_id: 1
+  status_id: 4
+  publisher_id: 4
+  explicit: false
+  publisher_name: "Kathrin Manager"
+  published_at: <%= 10.days.ago.to_s :db %>
+  text_language_id: 139
+  director: 'Karl Klammer'
+  copyright_holder: 'CCC'
+  run_time: 4600
+  synopsis: 'This is not a synopsis'
+  customer_viewed_counter: 1000
+  created_at: <%= 15.days.ago.to_s :db %>
+  updated_at: <%= 15.days.ago.to_s :db %>
+supplier_companies_first_verified:
+  id: 24
+  content_unit_number: RBL100000487-EN
+  title: "24 - Aber auch gar nichts funktioniert wie es soll"
+  year_of_production: 1999
+  format_id: 5
+  editor_id: 2
+  company_id: 4
+  status_id: 4
+  explicit: false
+  publisher_id: 9
+  publisher_name: "barabas supplier"
+  published_at: <%= 10.days.ago.to_s :db %>
+  text_language_id: 139
+  director: 'Karl Klammer'
+  copyright_holder: 'CCC'
+  run_time: 4600
+  synopsis: 'This is not a synopsis'
+  customer_viewed_counter: 10
+  created_at: <%= 15.days.ago.to_s :db %>
+  updated_at: <%= 15.days.ago.to_s :db %>
+supplier_companies_second_verified:
+  id: 25
+  content_unit_number: RBL100000487-EN
+  title: "25 - Und es funktioniert immer noch nicht"
+  year_of_production: 1999
+  format_id: 5
+  editor_id: 2
+  company_id: 4
+  status_id: 4
+  explicit: false
+  publisher_id: 9
+  publisher_name: "barabas supplier"
+  published_at: <%= 10.days.ago.to_s :db %>
+  text_language_id: 139
+  director: 'Karl Klammer'
+  copyright_holder: 'CCC'
+  run_time: 4600
+  synopsis: 'This is not a synopsis'
+  customer_viewed_counter: 10
+  created_at: <%= 15.days.ago.to_s :db %>
+  updated_at: <%= 15.days.ago.to_s :db %>
+explicit:
+  id: 26
+  identifier_isbn: 'ISBN 1-59059-752-4'
+  content_unit_number: RBL100000387-EN
+  title: Complete Red Bull Big Wave Africa2
+  year_of_production: 1972
+  format_id: 5
+  editor_id: 2
+  company_id: 1
+  status_id: 4
+  explicit: true
+  publisher_id: 4
+  publisher_name: "Kathrin Manager"
+  published_at: <%= 4.days.ago.to_s :db %>
+  text_language_id: 139
+  director: 'Kermit, the Frog'
+  copyright_holder: 'Muppets'
+  run_time: 3600
+  synopsis: 'this is a synopsis'
+  customer_viewed_counter: 100
+  created_at: <%= 5.days.ago.to_s :db %>
+  updated_at: <%= 5.days.ago.to_s :db %>
+for_programme_affinities:
+  id: 27
+  content_unit_number: RBL100000600-EN
+  title: "I am a really good movie"
+  year_of_production: 1999
+  format_id: 5
+  editor_id: 2
+  company_id: 1
+  status_id: 4
+  publisher_id: 4
+  publisher_name: "Kathrin Manager"
+  published_at: <%= 10.days.ago.to_s :db %>
+  text_language_id: 139
+  director: 'Karl Klammer'
+  copyright_holder: 'CCC'
+  run_time: 4600
+  synopsis: 'This is not a synopsis'
+  customer_viewed_counter: 1000
+  created_at: <%= 15.days.ago.to_s :db %>
+  updated_at: <%= 15.days.ago.to_s :db %>
+
+for_pa_1_verified:
+  id: 28
+  content_unit_number: RBL100000600-EN
+  title: "The definitive Donald Duck movie"
+  year_of_production: 1999
+  format_id: 11
+  editor_id: 2
+  company_id: 1
+  status_id: 4
+  publisher_id: 4
+  publisher_name: "Kathrin Manager"
+  published_at: <%= 10.days.ago.to_s :db %>
+  text_language_id: 139
+  director: 'Karl Klammer'
+  copyright_holder: 'CCC'
+  run_time: 4600
+  synopsis: 'This is not a synopsis'
+  customer_viewed_counter: 1000
+  created_at: <%= 15.days.ago.to_s :db %>
+  updated_at: <%= 15.days.ago.to_s :db %>
+
+for_pa_2_verified:
+  id: 29
+  content_unit_number: RBL100000600-EN
+  title: "The definitive Donald Duck movie"
+  year_of_production: 1999
+  format_id: 12
+  editor_id: 2
+  company_id: 1
+  status_id: 4
+  publisher_id: 4
+  publisher_name: "Kathrin Manager"
+  published_at: <%= 10.days.ago.to_s :db %>
+  text_language_id: 139
+  director: 'Karl Klammer'
+  copyright_holder: 'CCC'
+  run_time: 4600
+  synopsis: 'This is not a synopsis'
+  customer_viewed_counter: 1000
+  created_at: <%= 15.days.ago.to_s :db %>
+  updated_at: <%= 15.days.ago.to_s :db %>
+
+for_pa_3_verified:
+  id: 30
+  content_unit_number: RBL100000600-EN
+  title: "The definitive Donald Duck movie"
+  year_of_production: 1999
+  format_id: 13
+  editor_id: 2
+  company_id: 1
+  status_id: 4
+  publisher_id: 4
+  publisher_name: "Kathrin Manager"
+  published_at: <%= 10.days.ago.to_s :db %>
+  text_language_id: 139
+  director: 'Karl Klammer'
+  copyright_holder: 'CCC'
+  run_time: 4600
+  synopsis: 'This is not a synopsis'
+  customer_viewed_counter: 1000
+  created_at: <%= 15.days.ago.to_s :db %>
+  updated_at: <%= 15.days.ago.to_s :db %>
+
+for_pa_4_verified:
+  id: 31
+  content_unit_number: RBL100000600-EN
+  title: "The definitive Donald Duck movie"
+  year_of_production: 1999
+  format_id: 14
+  editor_id: 2
+  company_id: 1
+  status_id: 4
+  publisher_id: 4
+  publisher_name: "Kathrin Manager"
+  published_at: <%= 10.days.ago.to_s :db %>
+  text_language_id: 139
+  director: 'Karl Klammer'
+  copyright_holder: 'CCC'
+  run_time: 4600
+  synopsis: 'This is not a synopsis'
+  customer_viewed_counter: 1000
+  created_at: <%= 15.days.ago.to_s :db %>
+  updated_at: <%= 15.days.ago.to_s :db %>
+
+for_pa_5_verified:
+  id: 32
+  content_unit_number: RBL100000600-EN
+  title: "The definitive Donald Duck movie"
+  year_of_production: 1999
+  format_id: 15
+  editor_id: 2
+  company_id: 1
+  status_id: 4
+  publisher_id: 4
+  publisher_name: "Kathrin Manager"
+  published_at: <%= 10.days.ago.to_s :db %>
+  text_language_id: 139
+  director: 'Karl Klammer'
+  copyright_holder: 'CCC'
+  run_time: 4600
+  synopsis: 'This is not a synopsis'
+  customer_viewed_counter: 1000
+  created_at: <%= 15.days.ago.to_s :db %>
+  updated_at: <%= 15.days.ago.to_s :db %>
+
+for_pa_6_verified:
+  id: 33
+  content_unit_number: RBL100000600-EN
+  title: "The definitive Donald Duck movie"
+  year_of_production: 1999
+  format_id: 16
+  editor_id: 2
+  company_id: 1
+  status_id: 4
+  publisher_id: 4
+  publisher_name: "Kathrin Manager"
+  published_at: <%= 10.days.ago.to_s :db %>
+  text_language_id: 139
+  director: 'Karl Klammer'
+  copyright_holder: 'CCC'
+  run_time: 4600
+  synopsis: 'This is not a synopsis'
+  customer_viewed_counter: 1000
+  created_at: <%= 15.days.ago.to_s :db %>
+  updated_at: <%= 15.days.ago.to_s :db %>
+
+for_pa_7_verified:
+  id: 34
+  content_unit_number: RBL100000600-EN
+  title: "The definitive Donald Duck movie"
+  year_of_production: 1999
+  format_id: 17
+  editor_id: 2
+  company_id: 1
+  status_id: 4
+  publisher_id: 4
+  publisher_name: "Kathrin Manager"
+  published_at: <%= 10.days.ago.to_s :db %>
+  text_language_id: 139
+  director: 'Karl Klammer'
+  copyright_holder: 'CCC'
+  run_time: 4600
+  synopsis: 'This is not a synopsis'
+  customer_viewed_counter: 1000
+  created_at: <%= 15.days.ago.to_s :db %>
+  updated_at: <%= 15.days.ago.to_s :db %>
+
+for_pa_8_verified:
+  id: 35
+  content_unit_number: RBL100000600-EN
+  title: "The definitive Donald Duck movie"
+  year_of_production: 1999
+  format_id: 18
+  editor_id: 2
+  company_id: 1
+  status_id: 4
+  publisher_id: 4
+  publisher_name: "Kathrin Manager"
+  published_at: <%= 10.days.ago.to_s :db %>
+  text_language_id: 139
+  director: 'Karl Klammer'
+  copyright_holder: 'CCC'
+  run_time: 4600
+  synopsis: 'This is not a synopsis'
+  customer_viewed_counter: 1000
+  created_at: <%= 15.days.ago.to_s :db %>
+  updated_at: <%= 15.days.ago.to_s :db %>
+
+for_pa_9_verified:
+  id: 36
+  content_unit_number: RBL100000600-EN
+  title: "The definitive Donald Duck movie"
+  year_of_production: 1999
+  format_id: 19
+  editor_id: 2
+  company_id: 1
+  status_id: 4
+  publisher_id: 4
+  publisher_name: "Kathrin Manager"
+  published_at: <%= 10.days.ago.to_s :db %>
+  text_language_id: 139
+  director: 'Karl Klammer'
+  copyright_holder: 'CCC'
+  run_time: 4600
+  synopsis: 'This is not a synopsis'
+  customer_viewed_counter: 1000
+  created_at: <%= 15.days.ago.to_s :db %>
+  updated_at: <%= 15.days.ago.to_s :db %>
+
+for_pa_10_verified:
+  id: 37
+  content_unit_number: RBL100000600-EN
+  title: "The definitive Donald Duck movie"
+  year_of_production: 1999
+  format_id: 20
+  editor_id: 2
+  company_id: 1
+  status_id: 4
+  publisher_id: 4
+  publisher_name: "Kathrin Manager"
+  published_at: <%= 10.days.ago.to_s :db %>
+  text_language_id: 139
+  director: 'Karl Klammer'
+  copyright_holder: 'CCC'
+  run_time: 4600
+  synopsis: 'This is not a synopsis'
+  customer_viewed_counter: 1000
+  created_at: <%= 15.days.ago.to_s :db %>
+  updated_at: <%= 15.days.ago.to_s :db %>
+
+for_pa_11_verified:
+  id: 38
+  content_unit_number: RBL100000600-EN
+  title: "The definitive Donald Duck movie"
+  year_of_production: 1999
+  format_id: 21
+  editor_id: 2
+  company_id: 1
+  status_id: 4
+  publisher_id: 4
+  publisher_name: "Kathrin Manager"
+  published_at: <%= 10.days.ago.to_s :db %>
+  text_language_id: 139
+  director: 'Karl Klammer'
+  copyright_holder: 'CCC'
+  run_time: 4600
+  synopsis: 'This is not a synopsis'
+  customer_viewed_counter: 1000
+  created_at: <%= 15.days.ago.to_s :db %>
+  updated_at: <%= 15.days.ago.to_s :db %>
+
+for_pa_12_verified:
+  id: 39
+  content_unit_number: RBL100000600-EN
+  title: "The definitive Donald Duck movie"
+  year_of_production: 1999
+  format_id: 22
+  editor_id: 2
+  company_id: 1
+  status_id: 4
+  publisher_id: 4
+  publisher_name: "Kathrin Manager"
+  published_at: <%= 10.days.ago.to_s :db %>
+  text_language_id: 139
+  director: 'Karl Klammer'
+  copyright_holder: 'CCC'
+  run_time: 4600
+  synopsis: 'This is not a synopsis'
+  customer_viewed_counter: 1000
+  created_at: <%= 15.days.ago.to_s :db %>
+  updated_at: <%= 15.days.ago.to_s :db %>
+
+second_programme_for_pg_nr_1:
+  id: 40
+  identifier_isbn: 'ISBN 1-59059-752-4'
+  content_unit_number: RBL100000387-EN
+  title: Red Bull Big Wave Africa_3
+  year_of_production: 2008
+  format_id: 8
+  editor_id: 2
+  company_id: 1
+  status_id: 2
+  episode_no: 2
+  programme_group_id: 1
+  text_language_id: 139
+  director: 'Kermit, the Frog'
+  copyright_holder: 'Muppets'
+  run_time: 7200
+  synopsis: 'this is a synopsis'
+  created_at: <%= 5.days.ago.to_s :db %>
+  updated_at: <%= 5.days.ago.to_s :db %>
+
+published:
+  id: 41
+  identifier_isbn: 'ISBN 1-59059-752-4'
+  content_unit_number: RBL100000387-EN
+  title: Complete Red Bull Big Wave Africa2
+  year_of_production: 1972
+  format_id: 5
+  editor_id: 2
+  company_id: 1
+  status_id: 3
+  explicit: false
+  publisher_id: 4
+  publisher_name: "Kathrin Manager"
+  published_at: <%= 4.days.ago.to_s :db %>
+  text_language_id: 139
+  director: 'Kermit, the Frog'
+  copyright_holder: 'Muppets'
+  run_time: 3600
+  synopsis: 'this is a synopsis'
+  customer_viewed_counter: 100
+  created_at: <%= 5.days.ago.to_s :db %>
+  updated_at: <%= 5.days.ago.to_s :db %>
+
+another_published:
+  id: 42
+  identifier_isbn: 'ISBN 1-59059-752-4'
+  content_unit_number: RBL100000388-EN
+  title: Kenny dies
+  year_of_production: 1999
+  format_id: 5
+  episode_no: 1
+  programme_group_id: 5
+  editor_id: 2
+  company_id: 1
+  status_id: 3
+  explicit: false
+  publisher_id: 4
+  publisher_name: "Kathrin Manager"
+  published_at: <%= 4.days.ago.to_s :db %>
+  text_language_id: 139
+  director: 'Michael Jordan'
+  copyright_holder: 'Southpark Studios'
+  run_time: 3600
+  synopsis: 'Watch this so funny episode of Southpark'
+  customer_viewed_counter: 100
+  created_at: <%= 5.days.ago.to_s :db %>
+  updated_at: <%= 5.days.ago.to_s :db %>
+

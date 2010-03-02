@@ -1,0 +1,1 @@
+Dir.extend Dir::MakeDirs
