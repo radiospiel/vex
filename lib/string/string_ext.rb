@@ -1,6 +1,3 @@
-require "sanitize"
-require "htmlentities"
-
 module StringExt
   def constantize?
     constantize
@@ -92,11 +89,22 @@ module StringExt::Etest
   end
 
   # truncate :length => 30, :omission => "..."
-  def test_truncate(opts = {})
+  def test_truncate
     assert_equal("", "".truncate)
     assert_equal("123456", "123456".truncate)
     assert_equal("123…", "1234567".truncate(:length => 6))
     assert_equal("123…", "1234567".truncate(6))
+    assert_equal("12345~", "1234567".truncate(6, "~"))
+  end
+
+  def test_truncate!
+    s = "1234567"
+
+    assert_equal "123…", s.truncate(6)
+    assert_equal "1234567", s
+
+    assert_equal "123…", s.truncate!(6)
+    assert_equal "123…", s
   end
 
   def test_word_wrap
@@ -109,5 +117,10 @@ module StringExt::Etest
     assert_equal true, "http://".uri?
     assert_equal false, "//".uri?
     assert_equal false, "c:\\x\\y".uri?
+  end
+
+  def test_constantize
+    assert_equal String, "String".constantize?
+    assert_equal nil, "I::Dont::Know::This".constantize?
   end
 end

@@ -106,12 +106,12 @@ module Hash::Cross::Etest
     assert_equal([{:a=>1}, {:a=>:b}], uncrossed.cross)
   end
 
-  def xtest_benchmark_1
-    benchmark do
-      5000.times do 
-        uncrossed = { :a => [ 1, 2], :b => [ "bb", "cc"], :c => :cc }
-        uncrossed.cross
-      end
-    end
-  end
+  # def xtest_benchmark_1
+  #   benchmark do
+  #     5000.times do 
+  #       uncrossed = { :a => [ 1, 2], :b => [ "bb", "cc"], :c => :cc }
+  #       uncrossed.cross
+  #     end
+  #   end
+  # end
 end

@@ -30,11 +30,13 @@ module Enumerable
     def method_missing(sym, *args)
       return @base.send(sym, *args) unless block_given?
 
-      @base.send sym, *args do |*args|
-        yield *args
-
-        @idx += 1
-        on_progress(@idx, @count)
+      r = @base.send sym, *args do |*args|
+        begin
+          yield *args
+        ensure
+          @idx += 1
+          on_progress(@idx, @count)
+        end
       end
     end
   end
@@ -47,9 +49,16 @@ module Enumerable
     
     private
     
+    def print_line(s)
+      print s
+    end
+    
     def on_progress(idx, count)
-      return puts("\r#{"%.1f%%" % 100}#{" " * 40}") if idx == count
-
+      if idx == count
+        print_line("\r#{"%.1f%%" % 100}#{" " * 40}\n") 
+        return 
+      end
+      
       now = Time.now
       return if @last && now - @last <= 1
       
@@ -57,7 +66,7 @@ module Enumerable
       span = @last - @start
       remaining = ((count * 1.0 / idx) - 1) * span
 
-      print "\r#{"%.1f%%" % ((100.0 * idx) / count)}\t#{"   %.1f secs remaining            " % remaining}"
+      print_line "\r#{"%.1f%%" % ((100.0 * idx) / count)}\t#{"   %.1f secs remaining            " % remaining}"
     end
   end
 
@@ -106,6 +115,13 @@ module Enumerable::Etest
     assert_equal(false, [ nil ].any_not?(&:nil?))
     assert_equal(true, [ 1 ].any_not?(&:nil?))
     assert_equal(false, [ ].any_not?(&:nil?))
+  end
+
+  def test_with_progress
+    Enumerable::ConsoleProgress.any_instance.stubs(:print_line).returns(nil)
+    
+    r = [ 1, 2 ].with_progress.map do |s| s * s end
+    assert_equal( [ 1, 4], r)
   end
 
 end

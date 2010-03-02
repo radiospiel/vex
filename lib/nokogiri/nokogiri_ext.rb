@@ -1,28 +1,7 @@
-require 'nokogiri'
-
 module NokogiriExt
   def full_name
     ns = namespace
     ns ? "#{ns}:#{name}" : name
-  end
-
-  def ==(other)
-    case other
-    when Symbol
-      name == other.to_s
-    else
-      other.respond_to?(:pointer_id) && pointer_id == other.pointer_id
-    end
-  end
-
-  def css_path(start=nil)
-    return "" if self == start || self == document
-
-    p = node.parent.css_path(start)
-    p += " > " unless p.blank?
-    p += node.name
-    p += "." + node["class"].gsub(/\s+/, ".") unless node["class"].blank?
-    p
   end
 
   def transform(&block)
@@ -42,6 +21,12 @@ module NokogiriExt
       children.each do |child| child.transform(&block) end
     end
   end
+  
+  def remove_blanks
+    transform do |n|
+      n.name != "text" || !n.text.blank?
+    end
+  end
 end
 
 class Nokogiri::XML::Node
@@ -55,23 +40,57 @@ end
 module NokogiriExt::Etest
   SOURCE = <<-XML
 <bb>
-<xy></xy>
+<i:xy></i:xy>
 </bb>
 XML
 
-  def assert_xml(doc, expected)
-    actual = Nokogiri::XML(doc.to_s.gsub(/\n\s*/, "")).to_s
+  def assert_xml_equals(expected, actual)
+    expected = Nokogiri::XML(expected)
     
-    assert_equal("<?xml version=\"1.0\"?>\n#{expected}\n", actual)
+    if expected == actual 
+      assert true
+      return
+    end
+    
+    expected = expected.remove_blanks
+    actual = actual.remove_blanks
+
+    if expected == actual 
+      assert true
+      return
+    end
+
+    expected = expected.to_s.gsub(/<\?xml version=\"1.0\"\?>\n/, "")
+    actual = actual.to_s.gsub(/<\?xml version=\"1.0\"\?>\n/, "")
+
+    assert_equal expected, actual
   end
-  
+
+  def test_assertion
+    doc = Nokogiri::XML SOURCE
+    assert_xml_equals SOURCE, doc
+  end
+
   def test_transform
     doc = Nokogiri::XML SOURCE
     doc.root.transform do |s| "<cc />" end
-    assert_xml doc, "<cc/>"
+    assert_xml_equals "<cc/>", doc
 
     doc = Nokogiri::XML SOURCE
     doc.root.transform do |s| s.name != "xy" end
-    assert_xml doc, "<bb/>"
+    assert_xml_equals "<bb/>", doc 
+  end
+  
+  def test_transform2
+    doc = Nokogiri::XML SOURCE
+    doc.root.transform do |s| 
+      if s.name == "xy"
+        "<cc />" 
+      elsif s.name == "text" && s.text.blank?
+        false
+      end
+    end
+
+    assert_xml_equals "<bb><cc/></bb>", doc
   end
 end

@@ -30,20 +30,21 @@ module Dir::MakeDirs
     Dir.rmdir(path)
   end
 
-  TMPBASE = if defined?(RAILS_ROOT)
-    "#{RAILS_ROOT}/tmp"
-  else
-    ENV["TMPDIR"]
+  TMPBASE = ENV["TMPDIR"]
+  TMPBASE = "#{RAILS_ROOT}/tmp" if defined?(RAILS_ROOT)
+
+  def tmpbase
+    TMPBASE.gsub(/\/$/, "")
   end
   
   def tmp(do_unlink = true, &block)
-    path = "#{TMPBASE}/#{$$}_#{Thread.current.object_id}"
+    path = "#{tmpbase}/#{$$}_#{Thread.current.object_id}"
     Dir.mkdirs path
     returning(yield(path)) do 
       Dir.rmdirs(path) if do_unlink
     end
   rescue
-    Dir.rmdirs(path) if do_unlink && (!RAILS_ENV || RAILS_ENV == "production")
+    Dir.rmdirs(path) if do_unlink 
     raise
   end
 end
@@ -84,6 +85,19 @@ module Dir::MakeDirs::Etest
     end
     
     assert p.starts_with?(Dir::MakeDirs::TMPBASE)
-    assert !File.exist?(p)
+    assert_file_doesnt_exist p
+  end
+
+  def test_tmpdir_unlinks_on_raise
+    p = nil
+    assert_raise(RuntimeError) {  
+      Dir.tmp do |pdir|
+        p = pdir
+        raise RuntimeError
+      end
+    }
+    
+    assert p.starts_with?(Dir::MakeDirs::TMPBASE)
+    assert_file_doesnt_exist p
   end
 end

@@ -1,8 +1,6 @@
 module Hash::EnsureKeys
-  def ensure_keys!(*keys)
-    missing = keys - self.keys()
-    return if missing.empty?
-    raise ArgumentError, "Missing keys #{missing.inspect}"
+  def keys?(*keys)
+    (keys - self.keys()).empty?
   end
 end
 
@@ -13,8 +11,8 @@ end
 module Hash::EnsureKeys::Etest
   def test_ensure_keys
     h = { :a => "a" }
-    assert_raise(ArgumentError) { h.ensure_keys! :a, :b }
-    assert_nothing_raised { h.ensure_keys! :a }
-    assert_nothing_raised { h.ensure_keys! }    
+    assert_equal true, h.keys?(:a)
+    assert_equal true, h.keys?
+    assert_equal false, h.keys?(:a, :b)
   end
 end

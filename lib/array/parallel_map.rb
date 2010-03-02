@@ -55,7 +55,6 @@ module Array::ParallelMap::Etest
   def calculate(repeat, method)
     (1..repeat).to_a.send(method) do |p| 
       (1..MAX).inject(0) do |sum, i| 
-        # STDERR.puts Thread.current.object_id if i % 10000 == 0
         sum + p * i 
       end 
     end
@@ -73,6 +72,19 @@ module Array::ParallelMap::Etest
     serial = calculate_serial(4)
     parallel = calculate_parallel(4)
     assert_equal(serial, parallel)
+  end
+
+  def test_peach
+    semaphore = Mutex.new
+    
+    results = []
+    
+    array = [ 1, 2, 3, 4]
+    r = array.peach do |p|
+      semaphore.synchronize { results << p }
+    end
+    assert_equal(array, results.sort)
+    assert_equal(array, r)
   end
 
   def test_pmap_timeout

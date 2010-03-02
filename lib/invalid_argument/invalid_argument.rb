@@ -64,10 +64,34 @@ end
 module Module::Etest
   class X
     not_implemented :a, :b
+
+    def c(x)
+      invalid_argument! "This is strange" unless x == 0
+    end
+
+    def d(x)
+      missing_options! :a, :b unless x.keys?(:a, :b)
+    end
   end
   
   def test_missing
     assert_raise(MissingImplementation) { X.new.a }
     assert_raise(MissingImplementation) { X.new.a 1, 2 }
+  end
+
+  def test_missing_options
+    assert_raises_kind_of(ArgumentError) {
+      X.new.d :a => "b", :c => "d"
+    }
+  end
+
+  def test_invalid_argument
+    assert_raises_kind_of(ArgumentError) { 
+      X.new.c 1
+    }
+    
+    assert_nothing_raised {  
+      X.new.c 0
+    }
   end
 end

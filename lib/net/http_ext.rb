@@ -71,28 +71,34 @@ module Net::HTTPExt
 
   alias :exist? :exists?
 
+  HEADERS_KEY = :"net:http_ext:preprocessors:headers"
+
   def headers
-    Thread.current[:"net:http_ext:preprocessors:headers"] ||= {}
+    Thread.current[HEADERS_KEY] ||= {}
+  end
+
+  def headers=(h)
+    Thread.current[HEADERS_KEY] = h
   end
   
   def with_headers(scope, &block)
-    old = headers.dup
-    headers.update scope
+    old = headers
+    self.headers = headers.dup.update scope
     yield
   ensure
-    Thread.current[:"net:http_ext:preprocessors:headers"] = old
+    self.headers = old
   end
   
   private
   
   def adjust_request!(verb, path, h, body)
-    headers.each do |k,v|
+    headers.stringify_keys.each do |k,v|
       if v.respond_to?(:call)
         v.call(verb, path, h, body) 
       elsif v.nil?
         h.delete k
       else
-        h[k] ||= v
+        h[k.to_s] ||= v
       end
     end
   end
@@ -182,14 +188,37 @@ module Net::HTTPExt::Etest
     assert google.headers["Content-Type"] =~ /text\/html/
     assert google.headers.content_type =~ /text\/html/
   end
-   
+
   def test_w_google
     return unless Socket.online?
 
+    assert Net.exists?("http://www.google.de")
+    assert Net.exist?("http://www.google.de")
+    
     google = Net.get("http://www.google.de")
     assert google =~ /<title>Google/
     assert google.headers["Content-Type"] =~ /text\/html/
     assert google.headers.content_type =~ /text\/html/
+  end
+
+  def test_w_google_timeout
+    return unless Socket.online?
+
+    google = Net.get("http://www.google.de", :timeout => 0.01)
+    assert_equal(nil, google)
+  end
+
+  def test_w_google_adjusted_headers
+    return unless Socket.online?
+
+    Net.with_headers :x_abc => "Test ABC" do
+      assert_equal("Test ABC", Net.headers[:x_abc])
+      assert Net.exists?("http://www.google.de")
+      Net.with_headers :x_abc => nil do
+        assert_equal(nil, Net.headers[:x_abc])
+      end
+      assert_equal("Test ABC", Net.headers[:x_abc])
+    end
   end
 end
 

@@ -24,22 +24,17 @@ class RangeArray < Array
   end
 end
 
+module RangeArray::Etest
+  def ra(*array)
+    RangeArray.new array
+  end
 
-__END__
-
-def RangeArray(array)
-  RangeArray.new array
+  def test_range_array
+    assert_equal [1..3],                        ra(1, 2, 3)
+    assert_equal [1..3, 5..6],                  ra(1, 2, 3, 5, 6)
+    assert_equal [1..3, 5..6, 8],               ra(1, 2, 3, 5, 6, 8)
+    assert_equal [1..2, 7, 3, 5..6, 8],         ra(1, 2, 7, 3, 5, 6, 8)
+    assert_equal [1..2, 7, 3, 5..6, 8, 4],      ra(1, 2, 7, 3, 5, 6, 8, 4)
+    assert_equal [1..2, 7, 3, 5..6, 8, 4, -3],  ra(1, 2, 7, 3, 5, 6, 8, 4, -3)
+  end
 end
-
-?> RangeArray [ 1, 2, 3]
-=> [1..3]
->> RangeArray [ 1, 2, 3, 5, 6]
-=> [1..3, 5..6]
->> RangeArray [ 1, 2, 3, 5, 6, 8]
-=> [1..3, 5..6, 8]
->> RangeArray [ 1, 2, 7, 3, 5, 6, 8]
-=> [1..2, 7, 3, 5..6, 8]
->> RangeArray [ 1, 2, 7, 3, 5, 6, 8, 4]
-=> [1..2, 7, 3, 5..6, 8, 4]
->> RangeArray [ 1, 2, 7, 3, 5, 6, 8, 4, -3]
-=> [1..2, 7, 3, 5..6, 8, 4, -3]

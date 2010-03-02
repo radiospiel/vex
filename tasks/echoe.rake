@@ -1,3 +1,5 @@
+unless defined?(SKIP_ECHOE)
+  
 #
 # GEM settings
 #
@@ -45,4 +47,6 @@ if gem_config = YAML.load(File.read("#{GEM_ROOT}/config/gem.yml"))
     puts
     puts "    gem push #{gem}"
   end
+end
+
 end

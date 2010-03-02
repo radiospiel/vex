@@ -1,4 +1,9 @@
 module FileUtils::TmpFile
+  def self.counter
+    Thread.current["tmpfiles"] ||= 0
+    Thread.current["tmpfiles"] += 1
+  end
+  
   #
   # tmpfile("xx.jpg") do |dest|
   #   Net.download("http://xx.yy.zz/a.jpg", dest)
@@ -6,30 +11,29 @@ module FileUtils::TmpFile
   #
   # the block gets the temp file name, which is guaranteed to be
   # unique amongst all running processes.
+  #
+  # If the path parameter is set the temporary file will be fastcopied 
+  # to that output file.
   def tmpfile(path=nil, &block)
-    ext = "#{$$}_#{Thread.current.object_id}_tmp"
+    raise ArgumentError, "This no longer supports Symbol parameters" if path.is_a?(Symbol)
+    ext = "#{Thread.uid}_#{FileUtils::TmpFile.counter}"
+    
     case path
     when nil    
-      tmp = "tmp/t_#{ext}"
-    when Symbol 
-      tmp, path = "tmp/t_#{ext}.#{path}", nil
+      tmp = "#{Dir.tmpbase}/data.#{ext}"
     else
       Dir.mkdirs(File.dirname(path))
-      tmp = "#{path}.#{ext}"
+      tmp = "#{path}.tmp#{ext}"
     end
     
     begin
       result = yield(tmp)
-      FileUtils.fast_copy(tmp, path) if File.exist?(tmp) && path && result != false
-      returning(result) do
-        File.unlink(tmp) if File.exists?(tmp)
+      if result != false && path && File.exist?(tmp)
+        FileUtils.fast_copy(tmp, path)
       end
-    rescue
-      if File.exists?(tmp)
-        File.unlink(tmp) if !RAILS_ENV || RAILS_ENV == "production"
-      end
-      
-      raise
+      return result
+    ensure
+      File.unlink(tmp) if File.exists?(tmp)
     end
   end
 end
