@@ -3,6 +3,14 @@ module App
     defined?(RAILS_ROOT)
   end
 
+  def self.revision
+    @revision ||= begin
+      "r#{File.read("#{root}/REVISION")}"
+    rescue Errno::ENOENT
+      ""
+    end 
+  end
+
   def self.env
     if rails?
       RAILS_ENV
@@ -47,10 +55,19 @@ module App
       tmpdir
     end
   end
+
+  def self.local_conf
+    @local_conf = nil if App.env == "development"
+    @local_conf ||= LocalConf.new("local.yml")
+  end
 end
 
 module App::Etest
   def test_app
     assert_not_nil(App.root)
+  end
+
+  def test_app
+    assert_equal("", App.revision)
   end
 end

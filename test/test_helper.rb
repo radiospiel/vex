@@ -16,6 +16,9 @@ $:.push "#{DIRNAME}/../lib"
 
 require "vex/#{VEX_TEST}"
 
+Dir.glob("#{DIRNAME}/#{VEX_TEST}-tests/**/*.rb").each do |file|
+  load file
+end
 
 # ---------------------------------------------------------------------
 

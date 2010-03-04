@@ -1,3 +1,5 @@
+puts "Loading EasyAccess"
+
 #
 # - allows to use hash.xx.yy where you would have to use
 # hash["xx"][:yy] etc.
@@ -45,7 +47,7 @@ class Hash
         raise NoMethodError, "undefined key `#{key}' for #{self.inspect}"
       end
       
-      eazy_access hash.fetch(k)
+      easy_access hash.fetch(k)
     end
 
     def self.set(hash, key, value)
@@ -53,32 +55,32 @@ class Hash
       hash[k] = value
     end
     
-    def self.eazy_access(obj)
-      obj.eazy_access! if obj.is_a?(Hash)
+    def self.easy_access(obj)
+      obj.easy_access! if obj.is_a?(Hash)
       obj
     end
   end
 
-  def eazy_access
-    dup.eazy_access!
+  def easy_access
+    dup.easy_access!
   end
   
-  def eazy_access!
+  def easy_access!
     # extend always returns self
-    @eazy_accessible ||= extend(EasyAccess)
+    @easy_accessible ||= extend(EasyAccess)
   end
   
-  def eazy_accessible?
-    @eazy_accessible
+  def easy_accessible?
+    @easy_accessible
   end
 end
 
 module Hash::EasyAccess::Etest
-  def test_eazy_access_hashes
+  def test_easy_access_hashes
     h = { :a => { "b" => "ccc" }}
-    h1 = h.eazy_access!
-    assert h.eazy_accessible?
-    assert h1.eazy_accessible?
+    h1 = h.easy_access!
+    assert h.easy_accessible?
+    assert h1.easy_accessible?
     
     assert_equal("ccc", h.a.b)
     assert h1.object_id == h.object_id
@@ -89,11 +91,11 @@ module Hash::EasyAccess::Etest
     assert !h.a.c?
   end
 
-  def test_eazy_access_hashes_2
+  def test_easy_access_hashes_2
     h = { :a => { "b" => "ccc" }}
-    h1 = h.eazy_access
-    assert !h.eazy_accessible?
-    assert h1.eazy_accessible?
+    h1 = h.easy_access
+    assert !h.easy_accessible?
+    assert h1.easy_accessible?
     
     assert_equal("ccc", h1.a.b)
     assert h1.object_id != h.object_id
@@ -104,9 +106,9 @@ module Hash::EasyAccess::Etest
     assert !h1.a.c?
   end
 
-  def test_eazy_access_assigns
+  def test_easy_access_assigns
     h = { :a => { "b" => "ccc" }}
-    h.eazy_access!
+    h.easy_access!
     
     h.a = 2
     
@@ -116,11 +118,11 @@ module Hash::EasyAccess::Etest
     assert_equal({ :a => 2, "b" => 2}, h)
 
     v = { :c => { :d => 2 } }
-    assert !v.eazy_accessible?
+    assert !v.easy_accessible?
     
     h.b = v
     assert_equal(2, h.b.c.d)
-    assert !v.eazy_accessible?
-    assert h.b.eazy_accessible?
+    assert !v.easy_accessible?
+    assert h.b.easy_accessible?
   end
 end
