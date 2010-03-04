@@ -1,11 +1,3 @@
-class Hash
-  def without(*keys)
-    cpy = self.dup
-    keys.each { |key| cpy.delete(key) }
-    cpy
-  end
-end
-
 #
 # - allows to use hash.xx.yy where you would have to use
 # hash["xx"][:yy] etc.
@@ -23,47 +15,70 @@ end
 # will raise a NoMethodError.
 #
 class Hash
-  module Sloppiness
+  module EasyAccess
     def method_missing(sym, *args, &block)
-      return super unless args.empty? && !block_given?
+      return super if block_given?
       
-      if sym.to_s =~ /^(.*)\?/
-        return key?($1.to_s) || key?($1.to_sym)
+      if args.length == 0 && sym.to_s =~ /^(.*)\?/
+        !! EasyAccess.check(self, $1)
+      elsif args.length == 0
+        EasyAccess.fetch(self, sym)
+      elsif args.length == 1 && sym.to_s =~ /^(.*)\=/
+        v = args.first 
+        v = v.dup if v.is_a?(Hash)
+        EasyAccess.set(self, $1, v)
+      else
+        super
       end
-      
-      begin
-        return Sloppiness.sloppy(fetch(sym.to_sym))
-      rescue IndexError
-      end
+    end
 
-      begin
-        return Sloppiness.sloppy(fetch(sym.to_s))
-      rescue IndexError
-      end
+    def self.check_key(hash, key)
+      key if hash.key?(key)
+    end
 
-      raise NoMethodError, "undefined key `#{sym}' for #{self.inspect}"
+    def self.check(hash, key)
+      check_key(hash, key.to_s) || check_key(hash, key.to_sym)
     end
     
-    def self.sloppy(obj)
-      obj.sloppy! if obj.is_a?(Hash)
+    def self.fetch(hash, key)
+      if !(k = check(hash, key))
+        raise NoMethodError, "undefined key `#{key}' for #{self.inspect}"
+      end
+      
+      eazy_access hash.fetch(k)
+    end
+
+    def self.set(hash, key, value)
+      k = check(hash, key) || key
+      hash[k] = value
+    end
+    
+    def self.eazy_access(obj)
+      obj.eazy_access! if obj.is_a?(Hash)
       obj
     end
   end
 
-  def sloppy
-    dup.sloppy!
+  def eazy_access
+    dup.eazy_access!
   end
   
-  def sloppy!
-    extend(Sloppiness)
-    self
+  def eazy_access!
+    # extend always returns self
+    @eazy_accessible ||= extend(EasyAccess)
+  end
+  
+  def eazy_accessible?
+    @eazy_accessible
   end
 end
 
-module Hash::Sloppiness::Etest
-  def test_sloppy_hashes
+module Hash::EasyAccess::Etest
+  def test_eazy_access_hashes
     h = { :a => { "b" => "ccc" }}
-    h1 = h.sloppy!
+    h1 = h.eazy_access!
+    assert h.eazy_accessible?
+    assert h1.eazy_accessible?
     
     assert_equal("ccc", h.a.b)
     assert h1.object_id == h.object_id
@@ -74,9 +89,12 @@ module Hash::Sloppiness::Etest
     assert !h.a.c?
   end
 
-  def test_sloppy_hashes_2
+  def test_eazy_access_hashes_2
     h = { :a => { "b" => "ccc" }}
-    h1 = h.sloppy
+    h1 = h.eazy_access
+    assert !h.eazy_accessible?
+    assert h1.eazy_accessible?
+    
     assert_equal("ccc", h1.a.b)
     assert h1.object_id != h.object_id
 
@@ -84,5 +102,25 @@ module Hash::Sloppiness::Etest
     assert !h1.b?
     assert h1.a.b?
     assert !h1.a.c?
+  end
+
+  def test_eazy_access_assigns
+    h = { :a => { "b" => "ccc" }}
+    h.eazy_access!
+    
+    h.a = 2
+    
+    assert_equal({ :a => 2}, h)
+    
+    h.b = 2
+    assert_equal({ :a => 2, "b" => 2}, h)
+
+    v = { :c => { :d => 2 } }
+    assert !v.eazy_accessible?
+    
+    h.b = v
+    assert_equal(2, h.b.c.d)
+    assert !v.eazy_accessible?
+    assert h.b.eazy_accessible?
   end
 end
