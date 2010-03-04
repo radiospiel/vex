@@ -38,13 +38,6 @@ module Hash::Extract::Etest
     assert_equal(h.extract(:a, :c), {:a => "1"})
   end
 
-  def test_extract_w_indifferent_access
-    h = { :a => "1", :b => "2" }
-    h = h.with_indifferent_access
-
-    assert_equal(h.extract(:a, :c), {:a => "1"})
-  end
-
   def orig
     { 1 => 2, 3 => 4, 5 => 6}
   end

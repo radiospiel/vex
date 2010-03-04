@@ -126,16 +126,4 @@ module Hash::SimpleAccessMethods::Etest
     assert_equal("bb", h.a.b)
   end
 
-  def test_equality
-    h1 = { :a => "aa" }
-    h2 = { "a" => "aa" }
-    assert_not_equal(h1, h2)
-    assert_not_equal(h1.hash, h2.hash)
-    h1 = h1.with_indifferent_access
-    h2 = h2.with_indifferent_access
-    assert h1.eql?(h2)
-
-    assert_equal(h1, h2)
-    assert_equal(h1.hash, h2.hash)
-  end
 end

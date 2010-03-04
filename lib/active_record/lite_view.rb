@@ -1,5 +1,3 @@
-__END__
-
 # TODO: LiteViews do not or not always support type information. Therefore values
 # might be returned as strings, when in fact they are numbers. This behaviour is
 # heavily database dependant.

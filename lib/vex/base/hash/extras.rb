@@ -9,9 +9,10 @@ module Hash::Extras
     end
   end
 
+  # compare 
   def hmap(&block)
     self.inject({}) { |h, i|
-      h[i[0]] = yield(i[0], i[1])
+      h.update i[0] => yield(i[0], i[1])
       h
     }
   end

@@ -12,8 +12,32 @@ SQLITE_FILE = ":memory:"
 RAILS_ENV="test"
 RAILS_ROOT="#{DIRNAME}"
 
-if !defined?(RAILS_DEFAULT_LOGGER)
+if !defined?(App.logger)
   FileUtils.mkdir_p File.dirname(LOGFILE)
-  RAILS_DEFAULT_LOGGER = Logger.new(LOGFILE)
-  RAILS_DEFAULT_LOGGER.level = Logger::DEBUG
+  App.logger = Logger.new(LOGFILE)
+  App.logger.level = Logger::DEBUG
 end
+
+#
+# -- set up active record for tests -----------------------------------
+ACTIVE_RECORD = {
+  :adapter => "sqlite3",
+  :database => ":memory:"
+}
+
+if defined?(ActiveRecord::Base)
+  ActiveRecord::Base.logger ||= if defined?(App.logger)
+    App.logger
+  else
+    Logger.new $STDERR
+  end
+
+  #
+  # setup connection
+  begin
+    ActiveRecord::Base.connection
+  rescue ActiveRecord::ConnectionNotEstablished
+    ActiveRecord::Base.establish_connection ACTIVE_RECORD
+  end
+end
+

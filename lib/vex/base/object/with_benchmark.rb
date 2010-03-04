@@ -1,3 +1,5 @@
+require "benchmark"
+
 module Object::WithBenchmark
 
   class BenchmarkProxy
@@ -15,10 +17,10 @@ module Object::WithBenchmark
     
     def report(msg)
       if !@out
-        logger = @host.respond_to?(:logger) && @host.logger || RAILS_DEFAULT_LOGGER
+        logger = @host.respond_to?(:logger) && @host.logger || App.logger
 
         logger.warn(msg)
-        STDERR.puts(msg) if RAILS_ENV == "development" && !EmbeddedTest.running?
+        STDERR.puts(msg) if App.env == "development"
       elsif @out.respond_to?(:warn)
         @out.warn(msg)
       elsif @out.respond_to?(:<<)
@@ -68,7 +70,7 @@ Object.send :include, Object::WithBenchmark
 
 module Object::WithBenchmark::Etest
   def test_results
-    RAILS_DEFAULT_LOGGER.stubs(:warn).returns(nil)
+    App.logger.stubs(:warn).returns(nil)
 
     assert_equal 6, "string".benchmark.length
     assert_raise(NoMethodError) { 
@@ -83,7 +85,7 @@ module Object::WithBenchmark::Etest
   end
 
   def test_label
-    RAILS_DEFAULT_LOGGER.stubs(:warn).returns(nil)
+    App.logger.stubs(:warn).returns(nil)
 
     assert_equal 6, "string".benchmark("oh! a label!").length
   end

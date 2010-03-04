@@ -10,7 +10,7 @@ class Thread
       begin
         yield
       rescue
-        RAILS_DEFAULT_LOGGER.warn "Caught exception in background processing: #{$!}"
+        App.logger.warn "Caught exception in background processing: #{$!}"
       end
     }
   end

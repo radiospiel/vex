@@ -92,13 +92,16 @@ module Net::HTTPExt
   private
   
   def adjust_request!(verb, path, h, body)
-    headers.stringify_keys.each do |k,v|
+    headers.each do |k,v|
+      k = k.to_s
+      
       if v.respond_to?(:call)
         v.call(verb, path, h, body) 
       elsif v.nil?
         h.delete k
+        h.delete k.to_sym
       else
-        h[k.to_s] ||= v
+        h[k] ||= v
       end
     end
   end

@@ -1,24 +1,26 @@
-#!/usr/bin/env ruby
 DIRNAME = File.expand_path File.dirname(__FILE__)
 Dir.chdir(DIRNAME)
 
 require "rubygems"
-require "active_record"
+require "etest"
+
+APP_ROOT = DIRNAME
+
+# require "active_record"
+# 
+# require "#{DIRNAME}/initializers/fake_rails.rb"
 
 #
 # initialize the gem and the test runner
-require '../init'
+$:.push "#{DIRNAME}/../lib"
 
-require 'logger'
-require 'ruby-debug'
+require "vex/#{VEX_TEST}"
 
-require "#{DIRNAME}/initializers/fake_rails.rb"
-require "#{DIRNAME}/initializers/active_record.rb"
 
 # ---------------------------------------------------------------------
 
 require 'mocha'
-
+require 'ruby-debug'
 
 begin
   require 'minitest-rg'

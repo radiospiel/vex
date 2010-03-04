@@ -1,4 +1,6 @@
 require 'digest/sha1'
+require 'json'
+require 'base64'
 
 module SafeToken
   CipherError = if defined?(OpenSSL::Cipher::CipherError)
@@ -99,8 +101,7 @@ module SafeToken
       raise TokenExpired, expires if expires < Time.now      
     end
     
-    r = ActiveSupport::JSON.decode(data)
-    r.is_a?(Hash) ? r.with_indifferent_access : r
+    JSON.parse(data)
   end
 end
 
@@ -127,13 +128,6 @@ module SafeToken::Etest
   def test_token
     token = SafeToken.generate(data, :crypt => false)
     assert_equal data, SafeToken.validate(token)
-  end
-  
-  def test_token_indifferent_access
-    token = SafeToken.generate(data, :crypt => true)
-    d1 = SafeToken.validate(token, :crypt => true)
-    assert_equal(data["a"], d1[:a])
-    assert_equal(data["a"], d1["a"])
   end
   
   def test_token_w_crypt

@@ -4,6 +4,8 @@
 # DON'T CHANGE THIS FILE, CHANGE config/gem.rb INSTEAD!
 #
 
+__END__
+
 gem_root = File.expand_path(File.dirname(__FILE__))
 gem_name = File.basename gem_root
 

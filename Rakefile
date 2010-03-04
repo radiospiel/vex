@@ -1,11 +1,35 @@
-task :default => :test
+task :default => :"test:all"
+task :test => :"test:all"
+task :rcov => :"rcov:all"
 
-task :test do
-	sh "cd test; ruby test.rb"
+namespace :test do
+  task :boot do
+    sh "ruby test/boot.rb"
+  end
+
+  task :base do
+    sh "ruby test/base.rb"
+  end
+
+  task :all => %w(boot base)
 end
 
+namespace :rcov do
+  task :boot do
+    sh "rcov -T -o coverage/boot -x ruby/.*/gems test/boot.rb"
+  end
+
+  task :base do
+    sh "rcov -T -o coverage/base -x /vex/boot/ -x ruby/.*/gems test/base.rb"
+  end
+
+  task :all => %w(boot base)
+end
+
+__END__
+
 task :rcov do
-  sh "cd test; rcov -T -o ../coverage -x ruby/.*/gems -x ^initializers/ -x ^test.rb$ test.rb"
+  sh "cd test; rcov -T -o ../coverage -x ruby/.*/gems -x ^initializers/ -x config/plugins/ -x ^test.rb$ test.rb"
 end
 
 task :rdoc do

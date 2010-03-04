@@ -2,6 +2,7 @@ module StringExt
   def constantize?
     constantize
   rescue LoadError, NameError
+    STDERR.puts $!.to_s
   end
   
   def uri?
@@ -36,15 +37,24 @@ module StringExt
   
   def _truncate(opts)
     opts = { :length => opts, :omission => "…" } unless opts.is_a?(Hash)
-    opts.reverse_merge!(:length => 30, :omission => "…")
-    
-    l = opts[:length] - opts[:omission].mb_chars.length
-    chars = mb_chars
-    if chars.length > opts[:length] 
-      (chars[0...l] + opts[:omission]).to_s
+    max_length = opts[:length] || 30
+    omission = opts[:omission] || "…"
+
+    #
+    # Treat multibytes differently
+    if respond_to?(:mb_chars)
+      l = max_length - omission.mb_chars.length
+      if mb_chars.length > max_length
+        return (mb_chars[0...l] + omission).to_s
+      end
     else
-      self
+      l = max_length - omission.length
+      if length > max_length
+        return self[0...l] + omission
+      end
     end
+
+    self
   end
 
   def truncate!(opts = {})

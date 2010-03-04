@@ -33,12 +33,10 @@ module Dir::MakeDirs
   def tmp(do_unlink = true, &block)
     path = "#{App.tmpdir}/#{$$}_#{Thread.current.object_id}"
     Dir.mkdirs path
-    returning(yield(path)) do 
-      Dir.rmdirs(path) if do_unlink
-    end
-  rescue
-    Dir.rmdirs(path) if do_unlink 
-    raise
+    
+    r = yield(path)
+  ensure
+    Dir.rmdirs(path) if path && do_unlink
   end
 end
 
