@@ -30,15 +30,8 @@ module Dir::MakeDirs
     Dir.rmdir(path)
   end
 
-  TMPBASE = ENV["TMPDIR"]
-  TMPBASE = "#{RAILS_ROOT}/tmp" if defined?(RAILS_ROOT)
-
-  def tmpbase
-    TMPBASE.gsub(/\/$/, "")
-  end
-  
   def tmp(do_unlink = true, &block)
-    path = "#{tmpbase}/#{$$}_#{Thread.current.object_id}"
+    path = "#{App.tmpdir}/#{$$}_#{Thread.current.object_id}"
     Dir.mkdirs path
     returning(yield(path)) do 
       Dir.rmdirs(path) if do_unlink
@@ -84,7 +77,7 @@ module Dir::MakeDirs::Etest
       p = pdir
     end
     
-    assert p.starts_with?(Dir::MakeDirs::TMPBASE)
+    assert p.starts_with?("#{App.tmpdir}/")
     assert_file_doesnt_exist p
   end
 
@@ -97,7 +90,7 @@ module Dir::MakeDirs::Etest
       end
     }
     
-    assert p.starts_with?(Dir::MakeDirs::TMPBASE)
+    assert p.starts_with?("#{App.tmpdir}/")
     assert_file_doesnt_exist p
   end
 end

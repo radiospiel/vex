@@ -13,9 +13,11 @@ load "#{gem_root}/config/gem.rb"
 load "#{gem_root}/config/dependencies.rb"
 load "#{gem_root}/lib/#{gem_name}.rb"
 
-dirs = Dir.glob("#{gem_root}/lib/*").sort.select do |dir|
+dirs = Dir.glob("#{gem_root}/lib/*").select do |dir|
   File.directory?(dir)
-end.sort
+end.sort_by do |dir|
+  dir.ends_with?("boot") ? "" : dir
+end
 
 dirs.each do |dir|
   if File.exists?("#{dir}/__init__.rb")

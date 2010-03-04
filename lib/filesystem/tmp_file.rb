@@ -20,7 +20,7 @@ module FileUtils::TmpFile
     
     case path
     when nil    
-      tmp = "#{Dir.tmpbase}/data.#{ext}"
+      tmp = "#{App.tmpdir}/data.#{ext}"
     else
       Dir.mkdirs(File.dirname(path))
       tmp = "#{path}.tmp#{ext}"

@@ -23,7 +23,7 @@ module Thread::Etest
       i = 1
     end
     
-    Thread.send :sleep, 0.05
+    Thread.sleep 0.05
     assert_equal(1, i)
   end
 
@@ -35,7 +35,7 @@ module Thread::Etest
       i = 2
     end
     
-    Thread.send :sleep, 0.05
+    Thread.sleep 0.05
     assert_equal(1, i)
   end
 
@@ -45,7 +45,7 @@ module Thread::Etest
     Thread.deferred { pids[1] = Thread.uid }
     Thread.deferred { pids[2] = Thread.uid }
     
-    Thread.send :sleep, 0.05
+    Thread.sleep 0.05
     assert_equal(pids, pids.compact)
     assert_equal(pids, pids.uniq)
   end
