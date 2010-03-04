@@ -14,6 +14,8 @@ module App
   def self.env
     if rails?
       RAILS_ENV
+    elsif defined?(APP_ENV)
+      APP_ENV
     else
       "production"
     end

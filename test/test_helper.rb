@@ -5,6 +5,7 @@ require "rubygems"
 require "etest"
 
 APP_ROOT = DIRNAME
+APP_ENV = "test"
 
 # require "active_record"
 # 

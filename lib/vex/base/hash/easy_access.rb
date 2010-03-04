@@ -25,17 +25,28 @@ class Hash
     def method_missing(sym, *args, &block)
       return super if block_given?
       
-      if args.length == 0 && sym.to_s =~ /^(.*)\?/
+      if args.length == 0 && sym.to_s =~ /^(.*)\?$/
         !! EasyAccess.check(self, $1)
       elsif args.length == 0
         EasyAccess.fetch(self, sym)
-      elsif args.length == 1 && sym.to_s =~ /^(.*)\=/
+      elsif args.length == 1 && sym.to_s =~ /^(.*)\=$/
         v = args.first 
         v = v.dup if v.is_a?(Hash)
         EasyAccess.set(self, $1, v)
       else
         super
       end
+    end
+
+    def respond_to?(sym)
+      key = case sym.to_s
+      when /^(.*)[=\?]$/
+        $1
+      else
+        sym.to_s
+      end
+
+      EasyAccess.check(self, key) || super
     end
 
     def self.check_key(hash, key)
