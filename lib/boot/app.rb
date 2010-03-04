@@ -2,6 +2,14 @@ module App
   def self.rails?
     defined?(RAILS_ROOT)
   end
+
+  def self.env
+    if rails?
+      RAILS_ENV
+    else
+      "production"
+    end
+  end
   
   def self.root
     if defined?(RAILS_ROOT)

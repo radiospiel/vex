@@ -6,7 +6,6 @@ end
 
 # --- load advisory lock extensions -----------------------------------
 
-load "#{File.dirname(__FILE__)}/advisory_lock/abstract_adapter.rb"
 load "#{File.dirname(__FILE__)}/advisory_lock/mysql_adapter.rb"
 # load "#{File.dirname(__FILE__)}/advisory_lock/postgresql_adapter.rb"
 load "#{File.dirname(__FILE__)}/advisory_lock/sqlite_adapter.rb"

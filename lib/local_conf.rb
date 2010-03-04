@@ -4,14 +4,14 @@ class LocalConf < Hash
 
   def initialize(file)
     load file.sub(/\.yml$/, ".defaults.yml")
-    load file, RAILS_ENV
+    load file, App.env
   end
   
   private
   
   def load(file, key = nil)
     begin
-      data = YAML::load_file("#{RAILS_ROOT}/config/#{file}")
+      data = YAML::load_file("#{App.root}/config/#{file}")
       data = data[key] if data && key
       data.each { |k,v| update k.to_sym => v } if data
     rescue Errno::ENOENT
