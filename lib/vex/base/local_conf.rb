@@ -1,7 +1,7 @@
 class LocalConf < Hash
+  include Hash::EasyAccess
+  
   def initialize(file)
-    easy_access!
-    
     r1 = load file.sub(/\.yml$/, ".defaults.yml")
     r2 = load file, App.env
 
@@ -19,6 +19,13 @@ class LocalConf < Hash
     data.each { |k,v| update k.to_sym => v } if data
     true
   rescue Errno::ENOENT
+    false
+  end
+  
+  def method_missing(sym, *args, &block)
+    return super unless args.empty? && !block_given? && sym.to_s =~ /(.*)\?/
+    !fetch($1.to_sym).blank?
+  rescue IndexError
     false
   end
 

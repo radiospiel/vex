@@ -18,6 +18,10 @@ puts "Loading EasyAccess"
 #
 class Hash
   module EasyAccess
+    def self.extended(host)
+      host.instance_variable_set "@easy_accessible", true
+    end
+
     def method_missing(sym, *args, &block)
       return super if block_given?
       
@@ -67,7 +71,7 @@ class Hash
   
   def easy_access!
     # extend always returns self
-    @easy_accessible ||= extend(EasyAccess)
+    extend(EasyAccess)
   end
   
   def easy_accessible?
