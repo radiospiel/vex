@@ -223,5 +223,5 @@ module Net::HTTPExt::Etest
       assert_equal("Test ABC", Net.headers[:x_abc])
     end
   end
-end
+end if VEX_TEST == "base"
 

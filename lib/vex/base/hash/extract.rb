@@ -68,4 +68,4 @@ module Hash::Extract::Etest
       assert_equal orig, h
     }
   end
-end
+end if VEX_TEST == "base"

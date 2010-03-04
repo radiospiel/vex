@@ -84,4 +84,4 @@ module FileUtils::TmpFile::Etest
 
     assert_equal "fourfour", r
   end
-end
+end if VEX_TEST == "base"

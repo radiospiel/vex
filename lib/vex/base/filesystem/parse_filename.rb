@@ -33,4 +33,4 @@ module File::Etest
     assert_equal "", File.basename_wo_ext(".y")
     assert_equal "x", File.basename_wo_ext("x")
   end
-end
+end if VEX_TEST == "base"

@@ -107,4 +107,4 @@ module Object::WithBenchmark::Etest
     assert_equal 6, s.benchmark.length
     assert !s.logger.msg.blank?
   end
-end
+end if VEX_TEST == "base"

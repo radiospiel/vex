@@ -55,4 +55,4 @@ module Module::MultipleAttributes::Etest
     assert_equal 1, x.d
     assert_equal 2, x.e
   end
-end
+end if VEX_TEST == "base"

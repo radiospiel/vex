@@ -14,4 +14,4 @@ module Hash::Etest
     h = {"b" => 2, :a => 2}
     assert_equal('{:a => 2, "b" => 2}', h.inspect)
   end
-end
+end if VEX_TEST == "base"

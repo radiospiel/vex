@@ -40,4 +40,4 @@ module File::Lock::Etest
 
   def test_lock_unsuccessful
   end
-end
+end if VEX_TEST == "base"

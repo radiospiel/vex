@@ -8,4 +8,4 @@ module Thread::Etest
   def test_sleep
     Thread.sleep 0.001
   end
-end
+end if VEX_TEST == "base"

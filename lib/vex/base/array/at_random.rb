@@ -14,4 +14,4 @@ module Array::AtRandom::Etest
     end
     assert_equal nil, [].at_random
   end
-end
+end if VEX_TEST == "base"

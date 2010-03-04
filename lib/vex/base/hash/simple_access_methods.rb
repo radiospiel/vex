@@ -71,4 +71,4 @@ module Hash::SimpleAccessMethods::Etest
 
     assert_equal("bb", h.a.b)
   end
-end
+end if VEX_TEST == "base"

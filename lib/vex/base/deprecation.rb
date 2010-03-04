@@ -38,4 +38,4 @@ module Deprecation::Etest
     Deprecation.report "Hey"
     Deprecation.report "Hey"
   end
-end
+end if VEX_TEST == "base"

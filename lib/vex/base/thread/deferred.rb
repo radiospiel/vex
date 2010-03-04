@@ -49,4 +49,4 @@ module Thread::Etest
     assert_equal(pids, pids.compact)
     assert_equal(pids, pids.uniq)
   end
-end
+end if VEX_TEST == "base"

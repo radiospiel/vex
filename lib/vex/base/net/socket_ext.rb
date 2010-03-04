@@ -40,4 +40,4 @@ module Socket::Etest
       assert(local_net.include?(IPAddr.new(Socket.local_ip(ip))))
     end
   end
-end
+end if VEX_TEST == "base"

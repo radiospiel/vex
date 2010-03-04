@@ -37,4 +37,4 @@ module RangeArray::Etest
     assert_equal [1..2, 7, 3, 5..6, 8, 4],      ra(1, 2, 7, 3, 5, 6, 8, 4)
     assert_equal [1..2, 7, 3, 5..6, 8, 4, -3],  ra(1, 2, 7, 3, 5, 6, 8, 4, -3)
   end
-end
+end if VEX_TEST == "base"

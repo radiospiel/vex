@@ -72,4 +72,4 @@ module App::Etest
   def test_app
     assert_equal("", App.revision)
   end
-end
+end if VEX_TEST == "base"

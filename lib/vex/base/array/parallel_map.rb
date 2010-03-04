@@ -95,4 +95,4 @@ module Array::ParallelMap::Etest
     
     assert_equal([], r)
   end
-end
+end if VEX_TEST == "base"

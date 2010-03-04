@@ -20,4 +20,4 @@ module SingletonMethods::Etest
     s.define_object_method :bla do "blabla" end
     assert_equal("blabla", s.bla)
   end
-end
+end if VEX_TEST == "base"

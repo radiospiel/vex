@@ -114,4 +114,4 @@ module Hash::Cross::Etest
   #     end
   #   end
   # end
-end
+end if VEX_TEST == "base"

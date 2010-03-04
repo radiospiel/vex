@@ -68,4 +68,4 @@ module Enumerable::Etest
     r = [ 1, 2 ].with_progress.map do |s| s * s end
     assert_equal( [ 1, 4], r)
   end
-end
+end if VEX_TEST == "base"

@@ -40,4 +40,4 @@ module File::Write::Etest
     File.unlink TESTFILE
     assert !File.exist?(TESTFILE)
   end
-end
+end if VEX_TEST == "base"

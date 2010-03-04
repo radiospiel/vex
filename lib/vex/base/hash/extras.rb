@@ -59,4 +59,4 @@ module Hash::Extras::Etest
     assert_equal([ "a", nil ], h.select_entries(1, 3))
     assert_equal(h_orig, h)
   end
-end
+end if VEX_TEST == "base"

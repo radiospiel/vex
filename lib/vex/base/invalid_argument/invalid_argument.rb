@@ -94,4 +94,4 @@ module Module::Etest
       X.new.c 0
     }
   end
-end
+end if VEX_TEST == "base"

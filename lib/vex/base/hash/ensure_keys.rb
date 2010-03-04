@@ -15,4 +15,4 @@ module Hash::EnsureKeys::Etest
     assert_equal true, h.keys?
     assert_equal false, h.keys?(:a, :b)
   end
-end
+end if VEX_TEST == "base"

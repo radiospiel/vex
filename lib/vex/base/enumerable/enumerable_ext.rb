@@ -56,4 +56,4 @@ module Enumerable::Etest
 
     assert_equal({ "1" => 1, "2" => 4, "3" => 9}, h.hmap do |line| line.to_i * line.to_i end)
   end
-end
+end if VEX_TEST == "base"

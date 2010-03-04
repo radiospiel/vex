@@ -133,4 +133,4 @@ module StringExt::Etest
     assert_equal String, "String".constantize?
     assert_equal nil, "I::Dont::Know::This".constantize?
   end
-end
+end if VEX_TEST == "base"

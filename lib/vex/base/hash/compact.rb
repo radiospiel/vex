@@ -35,4 +35,4 @@ module Hash::Compact::Etest
     h = { nil => 1 }
     assert_equal(h.compact, { nil => 1})
   end
-end
+end if VEX_TEST == "base"

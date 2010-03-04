@@ -140,4 +140,4 @@ module Hash::EasyAccess::Etest
     assert !v.easy_accessible?
     assert h.b.easy_accessible?
   end
-end
+end if VEX_TEST == "base"

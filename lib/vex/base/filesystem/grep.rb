@@ -31,4 +31,4 @@ module File::Grep::Etest
     assert_equal 8, File.grep(/Etest/, [ __FILE__, __FILE__ ]).length
     assert_equal 8, File.grep(/Etest/, __FILE__, __FILE__ ).length
   end
-end
+end if VEX_TEST == "base"

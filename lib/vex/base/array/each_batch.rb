@@ -29,4 +29,4 @@ module Array::Cross::Etest
     
     assert_equal( [[1,2,3],[4,5,6],[7]], r)
   end
-end
+end if VEX_TEST == "base"

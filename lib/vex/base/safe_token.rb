@@ -152,5 +152,5 @@ module SafeToken::Etest
        assert_equal data, SafeToken.validate(token, :crypt => true)
     }
   end
-end
+end if VEX_TEST == "base"
 

@@ -58,4 +58,4 @@ module FileUtils::FastCopy::Etest
       FileUtils.fast_copy __FILE__, "tmp/nonexisting/dir"
     }
   end
-end
+end if VEX_TEST == "base"

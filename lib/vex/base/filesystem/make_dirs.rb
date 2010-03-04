@@ -91,4 +91,4 @@ module Dir::MakeDirs::Etest
     assert p.starts_with?("#{App.tmpdir}/")
     assert_file_doesnt_exist p
   end
-end
+end if VEX_TEST == "base"

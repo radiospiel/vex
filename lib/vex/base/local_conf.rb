@@ -32,4 +32,4 @@ class LocalConf < Hash
   def self.method_missing(sym, *args, &block)
     App.local_conf.send sym, *args, &block
   end
-end
+end if VEX_TEST == "base"

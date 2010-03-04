@@ -25,4 +25,4 @@ module Range::Etest
   def test_numeric
     assert_equal 1, -1.limit(1..3)
   end
-end
+end if VEX_TEST == "base"

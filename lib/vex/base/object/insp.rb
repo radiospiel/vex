@@ -120,4 +120,4 @@ module Insp::Etest
   def test_insp_obj
     assert X.new.insp =~ /Insp::Etest::X/
   end
-end
+end if VEX_TEST == "base"

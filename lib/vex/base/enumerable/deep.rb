@@ -92,4 +92,4 @@ module Deep::Etest
       Deep.reject(%w(1 2), 3)
     }
   end
-end
+end if VEX_TEST == "base"
