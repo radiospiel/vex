@@ -1,5 +1,3 @@
-puts "Loading EasyAccess"
-
 #
 # - allows to use hash.xx.yy where you would have to use
 # hash["xx"][:yy] etc.
