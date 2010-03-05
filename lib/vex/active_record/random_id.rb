@@ -33,6 +33,14 @@ class ActiveRecord::Base
 end
 
 module ActiveRecord::RandomID::Etest
+  class RandomBase < ActiveRecord::Base
+    lite_table do
+      text :parameters
+    end
+
+    with_random_id
+  end
+
   def test_random_id
     rb = RandomBase.create!
     uids = [ rb.id ]

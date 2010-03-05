@@ -11,9 +11,22 @@ module Vex
   # sorted alphabetically. Hint: use files __init__.rb
   # for stuff that must be loaded first.
   def self.load_directory(directory)
+    # load plugins first
+    plugin_dir = "#{ROOT}/#{directory}/plugins"
+    Dir.glob("#{plugin_dir}/*").each do |file|
+      load_plugin file if File.directory?(file)
+    end
+    
     (Dir.glob("#{ROOT}/#{directory}/**/*.rb") - [__FILE__]).sort.each do |file|
+      next if file[0, plugin_dir.length] == plugin_dir
       load file
     end
+  end
+
+  def self.load_plugin(directory)
+    $:.push(directory)
+    init_rb = "#{directory}/init.rb"
+    require(init_rb) if File.exists?(init_rb)
   end
 end
 

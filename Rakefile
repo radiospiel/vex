@@ -11,7 +11,11 @@ namespace :test do
     sh "ruby test/base.rb"
   end
 
-  task :all => %w(boot base)
+  task :ar do
+    sh "ruby test/ar.rb"
+  end
+
+  task :all => %w(boot base ar)
 end
 
 namespace :rcov do
@@ -21,6 +25,10 @@ namespace :rcov do
 
   task :base do
     sh "rcov -T -o coverage/base -x /vex/boot/ -x ruby/.*/gems test/base.rb"
+  end
+
+  task :ar do
+    sh "rcov -T -o coverage/ar -x /vex/boot/ -x /plugins/ -x /vex/base/ -x ruby/.*/gems test/ar.rb"
   end
 
   task :all => %w(boot base)
