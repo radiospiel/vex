@@ -1,3 +1,7 @@
+if !defined?(VEX_TEST)
+  VEX_TEST=""
+end
+
 require "#{File.dirname(__FILE__)}/vex/boot"
 Vex.load_directory "base"
 

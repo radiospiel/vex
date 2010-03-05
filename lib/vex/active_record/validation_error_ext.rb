@@ -65,4 +65,4 @@ module ActiveRecord::Errors::Unique::Etest
     obj.errors.add "value", "zzz"
     assert_equal(%w(xxx yyyy zzz), obj.errors["value"])
   end
-end
+end if VEX_TEST == "active_record"

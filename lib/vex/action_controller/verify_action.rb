@@ -93,5 +93,5 @@ module ActionController::VerifyAction
 end
 
 class ActionController::Base
-  include VerifyAction
+  include ActionController::VerifyAction
 end

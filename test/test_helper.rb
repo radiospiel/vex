@@ -1,3 +1,5 @@
+if defined?(VEX_TEST)
+  
 DIRNAME = File.expand_path File.dirname(__FILE__)
 Dir.chdir(DIRNAME)
 
@@ -43,3 +45,5 @@ dlog "etest #{::Etest::VERSION}"
 
 Etest.autorun if defined?(::Etest)
 # MiniTest::Unit.autorun
+
+end
