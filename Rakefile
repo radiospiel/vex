@@ -38,18 +38,12 @@ namespace :rcov do
   task :all => %w(boot base)
 end
 
-__END__
-
-task :rcov do
-  sh "cd test; rcov -T -o ../coverage -x ruby/.*/gems -x ^initializers/ -x config/plugins/ -x ^test.rb$ test.rb"
-end
-
-task :rdoc do
-  sh "rdoc -o doc/rdoc"
-end
-
 task :rebuild => :test do
   sh "rake -f tasks/echoe.rake rebuild"
+end
+
+task :manifest do
+  sh "rake -f tasks/echoe.rake manifest"
 end
 
 SKIP_ECHOE=true

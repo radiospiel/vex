@@ -4,4 +4,8 @@ author: pboy
 email: eno-pboy@open-lab.org  
 ignore_pattern:
   - "tmp/*"
+  - "test/tmp/*"
+  - "test/*.sqlite3*"
   - "**/.*"
+  - "vex.tmproj"
+  
