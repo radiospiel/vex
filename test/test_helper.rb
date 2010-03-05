@@ -15,7 +15,11 @@ APP_ENV = "test"
 # initialize the gem and the test runner
 $:.push "#{DIRNAME}/../lib"
 
-require "vex/#{VEX_TEST}"
+if defined?(VEX_AUTO_TEST)
+  require "vex"
+else
+  require "vex/#{VEX_TEST}"
+end
 
 Dir.glob("#{DIRNAME}/#{VEX_TEST}-tests/**/*.rb").each do |file|
   load file

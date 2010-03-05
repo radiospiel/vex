@@ -15,6 +15,10 @@ namespace :test do
     sh "ruby test/ar.rb"
   end
 
+  task :auto do
+    sh "ruby test/auto.rb"
+  end
+
   task :all => %w(boot base ar)
 end
 
