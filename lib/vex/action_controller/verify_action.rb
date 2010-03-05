@@ -91,3 +91,7 @@ module ActionController::VerifyAction
     fail(options, "Unsupported XHR state #{request.xhr?}")
   end
 end
+
+class ActionController::Base
+  include VerifyAction
+end
