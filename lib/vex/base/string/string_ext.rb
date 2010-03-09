@@ -4,6 +4,14 @@ module StringExt
   rescue LoadError, NameError
     STDERR.puts $!.to_s
   end
+
+  def upcase?
+    self == upcase
+  end
+  
+  def downcase?
+    self == downcase
+  end
   
   def uri?
     !!(self =~ /^[a-z][a-z]+:/)
@@ -133,4 +141,18 @@ module StringExt::Etest
     assert_equal String, "String".constantize?
     assert_equal nil, "I::Dont::Know::This".constantize?
   end
+
+  def test_downcase
+    assert_equal true, "expected".downcase?
+    assert_equal false, "Expected".downcase?
+    assert_equal false, "EXPECTED".downcase?
+
+    assert_equal false, "expected".upcase?
+    assert_equal false, "Expected".upcase?
+    assert_equal true, "EXPECTED".upcase?
+
+    assert_equal true, "".upcase?
+    assert_equal true, "".downcase?
+  end
+  
 end if VEX_TEST == "base"
