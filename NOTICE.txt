@@ -1,0 +1,8 @@
+IMPORTANT NOTE:
+===============
+
+While this software is accessible to the public it is not "released in the hope someone might 
+find it useful." You are welcome to use and to modify it any way you like.
+
+That means you might download and use it. Just don't expect it to work ;) And if it works 
+it might break between revisions.
