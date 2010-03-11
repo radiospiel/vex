@@ -3,7 +3,7 @@ class LocalConf < Hash
   
   def initialize(file)
     r1 = load file.sub(/\.yml$/, ".defaults.yml")
-    r2 = load file, App.env
+    r2 = load file
 
     return if r1 || r2
     
@@ -13,10 +13,18 @@ class LocalConf < Hash
 
   private
   
-  def load(file, key = nil)
+  def load(file)
     data = YAML::load_file("#{App.root}/config/#{file}")
-    data = data[key] if data && key
-    data.each { |k,v| update k.to_sym => v } if data
+
+    data.each { |k,v| update k.to_sym => v }
+
+    if h = data["defaults"]
+      h.each { |k,v| update k.to_sym => v }
+    end
+    if h = data[App.env]
+      h.each { |k,v| update k.to_sym => v }
+    end
+
     true
   rescue Errno::ENOENT
     false
@@ -32,4 +40,4 @@ class LocalConf < Hash
   def self.method_missing(sym, *args, &block)
     App.local_conf.send sym, *args, &block
   end
-end if VEX_TEST == "base"
+end

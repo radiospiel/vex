@@ -1,0 +1,4 @@
+0.2.5
+
+Adds ActionController.verify_hostname
+Adds ActionController.error

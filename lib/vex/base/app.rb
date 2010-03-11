@@ -20,6 +20,18 @@ module App
       "production"
     end
   end
+
+  def self.development?
+    env == "development"
+  end
+
+  def self.production?
+    env == "production"
+  end
+
+  def self.test?
+    env == "test"
+  end
   
   def self.root
     if defined?(RAILS_ROOT)

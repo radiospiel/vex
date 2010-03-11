@@ -54,7 +54,7 @@ module ActiveRecord::Validate
 
     invalid = []
 
-    klass.each do |model|
+    klass.find_each do |model|
       next if model.valid?
       invalid << model
       
