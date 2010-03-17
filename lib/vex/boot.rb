@@ -2,7 +2,7 @@ module Vex
   ROOT=File.expand_path "#{File.dirname(__FILE__)}/../vex"
   
   def self.version
-    @version ||= File.read("#{ROOT}/../../VERSION")
+    @version ||= File.read("#{ROOT}/../../VERSION").gsub(/\s+/, "")
   end
 
   #

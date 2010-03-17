@@ -17,11 +17,16 @@ module CustomValidations
 
     uri = url.is_a?(URI) ? url : URI.parse(url)
 
+    if !uri.scheme
+      return "Missing URI protocol"
+    end
+
     schemes = [ opts[:scheme] || %w(http https) ].flatten.compact 
-    if !schemes.empty? && (schemes != :any && !schemes.include?(uri.scheme))
-      "Unsupported protocol '#{uri.scheme}', must be one of #{schemes.join(", ")}"
-    elsif uri.scheme == "file" && !uri.path
-      "Invalid file: URL, needs a path"
+
+    return if schemes.include?(:any) || schemes.empty?
+
+    if !schemes.include?(uri.scheme)
+      return "Unsupported protocol #{uri.scheme.inspect}, must be one of #{schemes.join(", ")}"
     end
   rescue URI::InvalidURIError
     return $!.to_s
@@ -77,3 +82,28 @@ module CustomValidations
 end
 
 ActiveRecord::Base.extend CustomValidations
+
+module CustomValidations::Etest
+  class CVModel < ActiveRecord::Base
+    validates_url :url, :scheme => :any
+  end
+  
+  def test_lite_table
+    CVModel.lite_table do
+      string :url
+    end
+
+    cv = CVModel.new :url => "http://xx.yy"
+    assert cv.valid?
+
+    cv = CVModel.new :url => "data://xx.yy"
+    assert cv.valid?
+
+    cv = CVModel.new :url => "file:xx.yy"
+    assert cv.valid?
+
+    cv = CVModel.new :url => "illegal"
+    assert !cv.valid?
+  end
+end
+
