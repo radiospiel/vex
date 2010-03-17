@@ -20,6 +20,7 @@ lib/vex/active_record/advisory_lock.rb
 lib/vex/active_record/advisory_lock/mysql_adapter.rb
 lib/vex/active_record/advisory_lock/sqlite_adapter.rb
 lib/vex/active_record/belongs_to_many.rb
+lib/vex/active_record/custom_validations.rb
 lib/vex/active_record/find_by_extension.rb
 lib/vex/active_record/gem.rb
 lib/vex/active_record/lite_table.rb
