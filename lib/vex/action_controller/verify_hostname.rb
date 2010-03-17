@@ -1,6 +1,5 @@
 module ActionController::VerifyHostname
-
-  def self.verify_hostname(matcher=nil, &block)
+  def verify_hostname(matcher=nil, &block)
     matcher ||= Proc.new
     
     before_filter do |controller|
