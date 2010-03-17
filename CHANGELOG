@@ -2,3 +2,7 @@
 
 Adds ActionController.verify_hostname
 Adds ActionController.error
+
+0.2.7
+
+Fixed ActionController.verify_hostname

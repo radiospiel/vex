@@ -1,4 +1,6 @@
+CHANGELOG
 Manifest
+NOTICE.txt
 Rakefile
 VERSION
 config/README
@@ -8,7 +10,9 @@ init.rb
 lib/nokogiri/nokogiri_ext.rb
 lib/vex.rb
 lib/vex/action_controller.rb
+lib/vex/action_controller/error.rb
 lib/vex/action_controller/verify_action.rb
+lib/vex/action_controller/verify_hostname.rb
 lib/vex/action_controller/whitelisted_actions.rb
 lib/vex/active_record.rb
 lib/vex/active_record/__init__.rb
@@ -37,6 +41,7 @@ lib/vex/active_record/validation_error_ext.rb
 lib/vex/base.rb
 lib/vex/base/app.rb
 lib/vex/base/array/at_random.rb
+lib/vex/base/array/avg.rb
 lib/vex/base/array/cross.rb
 lib/vex/base/array/each_batch.rb
 lib/vex/base/array/parallel_map.rb
