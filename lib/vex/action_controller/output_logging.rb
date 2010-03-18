@@ -13,11 +13,11 @@ module ActionController::OutputLogging
   def self.do_output_logging(controller, exception)
     msg = []
       
-    msg << Time.now
-    msg << controller.params.to_a.sort_by(&:first).map { |k,v| "  #{k}: #{v.inspect}\n"}
+    msg << "#{Time.now}: #{controller.request.query_string}"
+    msg << (controller.params.to_a.sort_by(&:first).map { |k,v| "  #{k}: #{v.inspect}"}).join("\n")
     msg << "Caught exception #{exception.inspect}" if exception
     msg << controller.response.body
-    msg = msg.join("-" * 80) + msg.join("=" * 80)
+    msg = msg.join("\n" + "-" * 80 + "\n") + "\n" + "=" * 80
 
     logger.warn msg
   end
