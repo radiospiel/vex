@@ -71,6 +71,7 @@ lib/vex/base/invalid_argument/invalid_argument.rb
 lib/vex/base/local_conf.rb
 lib/vex/base/net/http_ext.rb
 lib/vex/base/net/socket_ext.rb
+lib/vex/base/object/in.rb
 lib/vex/base/object/insp.rb
 lib/vex/base/object/multiple_attributes.rb
 lib/vex/base/object/singleton_methods.rb

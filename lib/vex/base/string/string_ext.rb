@@ -17,6 +17,10 @@ module StringExt
     !!(self =~ /^[a-z][a-z]+:/)
   end
   
+  def to_uri
+    URI.parse(self)
+  end
+  
   def unhtml
     return self if blank?
     s = Sanitize.clean(self)

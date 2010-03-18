@@ -1,8 +1,17 @@
+0.3.0
+
+Adds Object#in?(collection)
+
+0.2.8
+
+Adds custom validations
+
+0.2.7
+
+Fixed ActionController.verify_hostname
+
 0.2.5
 
 Adds ActionController.verify_hostname
 Adds ActionController.error
 
-0.2.7
-
-Fixed ActionController.verify_hostname
