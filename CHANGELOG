@@ -1,3 +1,7 @@
+0.3.1
+
+Adds OutputLogging
+
 0.3.0
 
 Adds Object#in?(collection)
