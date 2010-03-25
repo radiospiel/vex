@@ -12,6 +12,7 @@ lib/vex.rb
 lib/vex/action_controller.rb
 lib/vex/action_controller/error.rb
 lib/vex/action_controller/output_logging.rb
+lib/vex/action_controller/partial_helper.rb
 lib/vex/action_controller/verify_action.rb
 lib/vex/action_controller/verify_hostname.rb
 lib/vex/action_controller/whitelisted_actions.rb

@@ -1,3 +1,11 @@
+0.3.3
+
+Adds Postgres support for lite table
+
+0.3.2
+
+Adds PartialHelper
+
 0.3.1
 
 Adds OutputLogging
