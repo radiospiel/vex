@@ -59,10 +59,13 @@ module ActiveRecord::LiteTable
       rescue
         # TODO: It would be *great* to have a unique exception type here!
         # But even in this case we have to check the options for identity!
-        case $!
-        when ActiveRecord::StatementInvalid, SQLite3::SQLException
-          return if $!.to_s =~ /Duplicate key name/       # for MySQL
-          return if $!.to_s =~ /index .* already exists/  # for Sqlite3
+        case $!.class.name
+        when "ActiveRecord::StatementInvalid"
+          return if $!.to_s =~ /Duplicate key name/           # for MySQL
+        when "SQLite3::SQLException"
+          return if $!.to_s =~ /index .* already exists/      # for Sqlite3
+        when "PGError"
+          return if $!.to_s =~ /relation .* already exists/   # for Postgres
         end
         
         raise
