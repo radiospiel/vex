@@ -42,7 +42,7 @@ end
 
 class Object
   def not_implemented!
-    raise MissingImplementation.new "#{self.class}##{caller_method_name}"
+    raise MissingImplementation, "#{self.class}##{caller_method_name}"
   end
 
   private
