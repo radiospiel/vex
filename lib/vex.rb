@@ -1,3 +1,5 @@
+require "fileutils"
+
 if !defined?(VEX_TEST)
   VEX_TEST=""
 end
