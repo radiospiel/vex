@@ -34,12 +34,16 @@ module App
   end
   
   def self.root
-    if defined?(RAILS_ROOT)
-      RAILS_ROOT
-    elsif defined?(APP_ROOT)
-      APP_ROOT
-    else
-      raise "Cannot determine application root"
+    @root ||= begin
+      if defined?(RAILS_ROOT)
+        RAILS_ROOT
+      elsif defined?(APP_ROOT)
+        APP_ROOT
+      elsif defined?($0)
+        File.expand_path File.dirname($0)
+      else
+        raise "Cannot determine application root"
+      end
     end
   end
 
