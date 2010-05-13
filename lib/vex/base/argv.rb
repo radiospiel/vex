@@ -5,17 +5,23 @@ class Argv < Hash
     super
   end
   
+  class ArrayX < Array
+    def shift(msg = nil)
+      super() || raise(msg || "Cannot fetch from empty array")
+    end
+  end
+  
   attr_reader :files
   
   def initialize(argv)
-    @files = []
+    @files = ArrayX.new
     argv = argv.dup
     while arg = argv.shift do
       if !(option = option?(arg))
         files.push(arg)
       elsif arg =~ /^--no-/
         set option, false
-      elsif option?(argv.first)
+      elsif argv.first.nil? || option?(argv.first)
         set option, true
       else
         set option, argv.shift
