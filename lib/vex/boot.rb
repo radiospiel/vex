@@ -1,3 +1,5 @@
+require "fileutils"
+
 module Vex
   ROOT=File.expand_path "#{File.dirname(__FILE__)}/../vex"
   

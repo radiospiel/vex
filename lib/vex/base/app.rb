@@ -64,7 +64,7 @@ module App
       tmpdir = if rails?
         "#{root}/tmp"
       else
-        ENV["TMPDIR"]
+        ENV["TMPDIR"] || "/tmp"
       end
 
       tmpdir = tmpdir.gsub(/\/$/, "")
