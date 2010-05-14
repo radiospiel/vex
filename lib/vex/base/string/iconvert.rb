@@ -10,7 +10,7 @@ class String
       require 'charguess' # not necessary if input encoding is known
       CharGuess
     rescue LoadError
-      STDERR.puts "Please install the charguess gem as pointed out here: http://radiospiel.org/0x2a-smooth-charguess-install"
+      dlog "Please install the charguess gem as pointed out here: http://radiospiel.org/0x2a-smooth-charguess-install"
       FakeCharGuess
     end
   end
