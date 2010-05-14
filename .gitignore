@@ -3,3 +3,8 @@ test.sqlite3*
 *.pid
 *.lck
 pkg
+test/tmp/*
+test/log
+*.gemspec
+
+

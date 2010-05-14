@@ -34,16 +34,14 @@ require 'ruby-debug'
 
 begin
   require 'minitest-rg'
-rescue MissingSourceFile
+rescue LoadError
   STDERR.puts "'gem install minitest-rg' gives you redgreen minitests"
-  require 'minitest/unit'
+  require 'etest'
 end
 
 #
 # run tests
-dlog "etest #{::Etest::VERSION}"
 
-Etest.autorun if defined?(::Etest)
-# MiniTest::Unit.autorun
+Etest.autorun
 
 end
