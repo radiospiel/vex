@@ -78,4 +78,5 @@ module Hash::Etest
       System.which!("lslslslslslslslslslslslslslsls")
     }
   end
-end
+end if VEX_TEST == "base"
+

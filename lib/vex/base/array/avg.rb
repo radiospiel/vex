@@ -20,4 +20,4 @@ module Array::Average::Etest
     assert_equal(2, [ 1, 3 ].avg)
     assert_equal(0, [ ].avg)
   end
-end
+end if VEX_TEST == "base"

@@ -39,4 +39,4 @@ module Vex::Etest
   def test_version
     assert_not_nil(Vex.version)
   end
-end
+end if VEX_TEST == "boot"

@@ -53,6 +53,12 @@ class Argv < Hash
   end
 end
 
+module App
+  def self.argv
+    @argv ||= Argv.new ARGV
+  end
+end
+
 module Argv::Etest
   def test_argv
     args = Argv.new(%w(test))
@@ -66,10 +72,5 @@ module Argv::Etest
     assert_equal false, args.xy
     assert_raises(NoMethodError) { args.bla }
   end
-end
+end if VEX_TEST == "base"
 
-module App
-  def self.argv
-    @argv ||= Argv.new ARGV
-  end
-end
