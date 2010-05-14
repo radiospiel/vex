@@ -2,19 +2,17 @@
 class Argv < Hash
   def method_missing(sym, *args, &block)
     return fetch(sym) if args.empty? && !block_given? && key?(sym)
+    if sym.to_s =~ /(.*)\?$/
+      return self[$1.to_sym]
+    end
+    
     super
   end
-  
-  class ArrayX < Array
-    def shift(msg = nil)
-      super() || raise(msg || "Cannot fetch from empty array")
-    end
-  end
-  
+    
   attr_reader :files
   
   def initialize(argv)
-    @files = ArrayX.new
+    @files = []
     argv = argv.dup
     while arg = argv.shift do
       if !(option = option?(arg))
