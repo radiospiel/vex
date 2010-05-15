@@ -1,12 +1,12 @@
 module ActiveRecord::MysqlBackup
   def purge
-    config = instance_variable_get("@config").easy_access
+    config = instance_variable_get("@config").slop
 
     recreate_database(config.database)  
   end
   
   def sqldump(file)
-    config = instance_variable_get("@config").easy_access
+    config = instance_variable_get("@config").slop
     
     cmd_opts = ""
     cmd_opts << "-h #{config.host} " if config.host?

@@ -1,5 +1,5 @@
 class LocalConf < Hash
-  include Hash::EasyAccess
+  include Hash::Slop
   
   def initialize(file)
     r1 = load file.sub(/\.yml$/, ".defaults.yml")

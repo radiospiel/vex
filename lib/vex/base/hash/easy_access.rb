@@ -15,85 +15,88 @@
 # will raise a NoMethodError.
 #
 class Hash
-  module EasyAccess
-    def self.extended(host)
-      host.instance_variable_set "@easy_accessible", true
+  module Slop
+    private
+    
+    # returns [ name, decorator ]
+    def parse_sloppy_method(sym)
+      case sym.to_s
+      when /^(.*)([=\?])$/
+        [ $1.to_sym, $2 ]
+      else
+        [ sym, nil ]
+      end
+    end
+    
+    def lookup_sloppy_key(key)
+      return key if key?(key)
+      return key.to_s if key?(key.to_s)
+      return key.to_sym
     end
 
     def method_missing(sym, *args, &block)
       return super if block_given?
-      
-      if args.length == 0 && sym.to_s =~ /^(.*)\?$/
-        !! EasyAccess.check(self, $1)
+
+      if args.length == 1 && sym.to_s =~ /^(.*)=$/
+        return self[lookup_sloppy_key($1)] = args.first
       elsif args.length == 0
-        EasyAccess.fetch(self, sym)
-      elsif args.length == 1 && sym.to_s =~ /^(.*)\=$/
-        v = args.first 
-        v = v.dup if v.is_a?(Hash)
-        EasyAccess.set(self, $1, v)
-      else
-        super
-      end
-    end
-
-    def respond_to?(sym)
-      key = case sym.to_s
-      when /^(.*)[=\?]$/
-        $1
-      else
-        sym.to_s
-      end
-
-      EasyAccess.check(self, key) || super
-    end
-
-    def self.check_key(hash, key)
-      key if hash.key?(key)
-    end
-
-    def self.check(hash, key)
-      check_key(hash, key.to_s) || check_key(hash, key.to_sym)
-    end
-    
-    def self.fetch(hash, key)
-      if !(k = check(hash, key))
-        raise NoMethodError, "undefined key `#{key}' for #{self.inspect}"
+        if sym.to_s =~ /^(.*)\?$/
+          return self[lookup_sloppy_key($1)].slop!
+        else
+          return fetch(lookup_sloppy_key(sym)).slop!
+        end
       end
       
-      easy_access hash.fetch(k)
+      super
     end
 
-    def self.set(hash, key, value)
-      k = check(hash, key) || key
-      hash[k] = value
-    end
-    
-    def self.easy_access(obj)
-      obj.easy_access! if obj.is_a?(Hash)
-      obj
+    public
+        
+    def respond_to?(sym)
+      super || case sym.to_s
+      when /^(.*)[=\?]$/
+        true
+      else
+        key? lookup_sloppy_key(sym)
+      end
     end
   end
 
-  def easy_access
-    dup.easy_access!
+  def slop!
+    extend(Slop)
   end
-  
-  def easy_access!
-    # extend always returns self
-    extend(EasyAccess)
-  end
-  
-  def easy_accessible?
-    @easy_accessible
+
+  def sloppy?
+    is_a?(Slop)
   end
 end
 
-module Hash::EasyAccess::Etest
-  def test_easy_access_hashes
+class Array
+  def slop!
+    each(&:"slop!")
+  end
+end
+
+class Object
+  def slop
+    dup.slop!
+  end
+  
+  def slop!    
+    self
+  end
+  
+  def sloppy?
+    false
+  end
+end
+
+module Hash::Slop::Etest
+  def test_slop_hashes
     h = { :a => { "b" => "ccc" }}
-    h1 = h.easy_access!
-    assert h.easy_accessible?
-    assert h1.easy_accessible?
+    h1 = h.slop!
+    assert h.sloppy?
+    assert h1.sloppy?
     
     assert_equal("ccc", h.a.b)
     assert h1.object_id == h.object_id
@@ -104,11 +107,11 @@ module Hash::EasyAccess::Etest
     assert !h.a.c?
   end
 
-  def test_easy_access_hashes_2
+  def test_slop_hashes_2
     h = { :a => { "b" => "ccc" }}
-    h1 = h.easy_access
-    assert !h.easy_accessible?
-    assert h1.easy_accessible?
+    h1 = h.slop
+    assert !h.sloppy?
+    assert h1.sloppy?
     
     assert_equal("ccc", h1.a.b)
     assert h1.object_id != h.object_id
@@ -119,23 +122,23 @@ module Hash::EasyAccess::Etest
     assert !h1.a.c?
   end
 
-  def test_easy_access_assigns
+  def test_slop_assigns
     h = { :a => { "b" => "ccc" }}
-    h.easy_access!
+    h.slop!
     
     h.a = 2
     
     assert_equal({ :a => 2}, h)
     
     h.b = 2
-    assert_equal({ :a => 2, "b" => 2}, h)
+    assert_equal({ :a => 2, :b => 2}, h)
 
     v = { :c => { :d => 2 } }
-    assert !v.easy_accessible?
+    assert !v.sloppy?
     
-    h.b = v
+    h.b = v.dup
     assert_equal(2, h.b.c.d)
-    assert !v.easy_accessible?
-    assert h.b.easy_accessible?
+    assert !v.sloppy?
+    assert h.b.sloppy?
   end
 end if VEX_TEST == "base"
