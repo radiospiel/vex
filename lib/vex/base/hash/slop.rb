@@ -41,12 +41,20 @@ class Hash
         return self[lookup_sloppy_key($1)] = args.first
       elsif args.length == 0
         if sym.to_s =~ /^(.*)\?$/
-          return self[lookup_sloppy_key($1)].slop!
+          # Return false if the entry does not exist.
+          # Return true if the entry exists and evaluates to false
+          # Return the entry otherwise.
+          key = lookup_sloppy_key($1)
+          return false if !key?(key)
+          return (self[key] || true).slop!
         else
+          # fetch the entry, if it exists, or raise an IndexError
           return fetch(lookup_sloppy_key(sym)).slop!
         end
       end
       
+      super
+    rescue IndexError
       super
     end
 
@@ -105,6 +113,23 @@ module Hash::Slop::Etest
     assert !h.b?
     assert h.a.b?
     assert !h.a.c?
+  end
+
+  def test_nil_entries
+    h = { :a => nil, :b => false, :c => 1 }
+    h.slop!
+    
+    assert_equal true, h.a?
+    assert_equal true, h.b?
+    assert_equal 1, h.c?
+    assert_equal false, h.d?
+
+    assert_equal nil, h.a
+    assert_equal false, h.b
+    assert_equal 1, h.c
+    assert_raises(NoMethodError) {
+      h.d
+    }
   end
 
   def test_slop_hashes_2
