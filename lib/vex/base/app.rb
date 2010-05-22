@@ -25,7 +25,7 @@ module App
     env == "development"
   end
 
-  def self.production?
+    def self.production?
     env == "production"
   end
 
@@ -47,6 +47,7 @@ module App
     end
   end
 
+  
   def self.logger
     if rails?
       RAILS_DEFAULT_LOGGER
@@ -73,7 +74,17 @@ module App
       tmpdir
     end
   end
-
+  
+  #
+  # make a sub dir
+  def subdir(path, *parts)
+    parts.unshift path
+    path = "#{root}/#{parts.join("/")}"
+    return path if File.exists?(path)
+    dlog "Creating dir #{path}"
+    FileUtils.mkdir_p(path)
+  end
+  
   def self.local_conf
     @local_conf = nil if App.env == "development"
     @local_conf ||= LocalConf.new("local.yml")

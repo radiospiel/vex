@@ -34,7 +34,6 @@ lib/vex/active_record/plugins/default_value_for/README.rdoc
 lib/vex/active_record/plugins/default_value_for/Rakefile
 lib/vex/active_record/plugins/default_value_for/init.rb
 lib/vex/active_record/plugins/default_value_for/test.rb
-lib/vex/active_record/plugins/default_value_for/test.sqlite3
 lib/vex/active_record/random_id.rb
 lib/vex/active_record/resolver.rb
 lib/vex/active_record/serialize_hash.rb
@@ -43,6 +42,7 @@ lib/vex/active_record/validate.rb
 lib/vex/active_record/validation_error_ext.rb
 lib/vex/base.rb
 lib/vex/base/app.rb
+lib/vex/base/argv.rb
 lib/vex/base/array/at_random.rb
 lib/vex/base/array/avg.rb
 lib/vex/base/array/cross.rb
@@ -63,12 +63,11 @@ lib/vex/base/filesystem/tmp_file.rb
 lib/vex/base/filesystem/write.rb
 lib/vex/base/hash/compact.rb
 lib/vex/base/hash/cross.rb
-lib/vex/base/hash/easy_access.rb
 lib/vex/base/hash/ensure_keys.rb
 lib/vex/base/hash/extract.rb
 lib/vex/base/hash/extras.rb
 lib/vex/base/hash/inspect.rb
-lib/vex/base/hash/simple_access_methods.rb
+lib/vex/base/hash/slop.rb
 lib/vex/base/invalid_argument/invalid_argument.rb
 lib/vex/base/local_conf.rb
 lib/vex/base/net/http_ext.rb
@@ -81,6 +80,7 @@ lib/vex/base/object/with_benchmark.rb
 lib/vex/base/range_array.rb
 lib/vex/base/range_ext.rb
 lib/vex/base/safe_token.rb
+lib/vex/base/string/iconvert.rb
 lib/vex/base/string/string_ext.rb
 lib/vex/base/system.rb
 lib/vex/base/thread/deferred.rb
@@ -90,7 +90,6 @@ lib/vex/boot.rb
 lib/vex/boot/array.rb
 lib/vex/boot/blank.rb
 lib/vex/boot/string.rb
-migration/create_request_log.rb
 script/console
 script/rebuild
 tasks/echoe.rake
