@@ -28,7 +28,7 @@ namespace :rcov do
   end
 
   task :base do
-    sh "rcov -T -o coverage/base -x /vex/boot/ -x ruby/.*/gems test/base.rb"
+    sh "rcov -T -o coverage/base -x /vex/boot -x ruby/.*/gems test/base.rb"
   end
 
   task :ar do
