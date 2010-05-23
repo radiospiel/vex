@@ -4,7 +4,6 @@ DIRNAME = File.expand_path File.dirname(__FILE__)
 Dir.chdir(DIRNAME)
 
 require "rubygems"
-require "etest"
 
 APP_ROOT = DIRNAME
 APP_ENV = "test"
@@ -29,15 +28,10 @@ end
 
 # ---------------------------------------------------------------------
 
-require 'mocha'
 require 'ruby-debug'
 
-begin
-  require 'minitest-rg'
-rescue LoadError
-  STDERR.puts "'gem install minitest-rg' gives you redgreen minitests"
-  require 'etest'
-end
+require 'mocha'
+require 'etest'
 
 #
 # run tests

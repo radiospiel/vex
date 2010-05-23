@@ -34,7 +34,7 @@ end
 
 module Deprecation::Etest
   def test_report
-    STDERR.expects(:puts)
+    STDERR.stubs(:puts).returns(nil)
     Deprecation.report "Hey"
     Deprecation.report "Hey"
   end
