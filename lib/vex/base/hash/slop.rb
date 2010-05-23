@@ -18,16 +18,6 @@ class Hash
   module Slop
     private
     
-    # returns [ name, decorator ]
-    def parse_sloppy_method(sym)
-      case sym.to_s
-      when /^(.*)([=\?])$/
-        [ $1.to_sym, $2 ]
-      else
-        [ sym, nil ]
-      end
-    end
-    
     def lookup_sloppy_key(key)
       return key if key?(key)
       return key.to_s if key?(key.to_s)
