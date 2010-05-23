@@ -63,6 +63,7 @@ module ActiveRecord::LiteTable
         when ActiveRecord::StatementInvalid, SQLite3::SQLException
           return if $!.to_s =~ /Duplicate key name/       # for MySQL
           return if $!.to_s =~ /index .* already exists/  # for Sqlite3
+          return if $!.to_s =~ /relation .* already exists/  # for Postgresql
         end
         
         raise
