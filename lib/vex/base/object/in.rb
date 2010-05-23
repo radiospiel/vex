@@ -22,4 +22,4 @@ module Object::InMethod::Etest
     assert_equal false, 1.in?(%w(1 2 3))
     assert_equal false, 1.in?([])
   end
-end
+end if VEX_TEST == "base"
