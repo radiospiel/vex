@@ -90,6 +90,7 @@ lib/vex/boot.rb
 lib/vex/boot/array.rb
 lib/vex/boot/blank.rb
 lib/vex/boot/string.rb
+migration/create_request_log.rb
 script/console
 script/rebuild
 tasks/echoe.rake
