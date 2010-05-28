@@ -77,7 +77,7 @@ module App
   
   #
   # make a sub dir
-  def subdir(path, *parts)
+  def self.subdir(path, *parts)
     parts.unshift path
     path = "#{root}/#{parts.join("/")}"
     return path if File.exists?(path)
