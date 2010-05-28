@@ -1,14 +1,23 @@
 module File::Write
   def touch(*files)
+    opts = if files.last.is_a?(Hash)
+      files.pop
+    else
+      {}
+    end
+    
     files.each do |file|
-      File.open(file, "w") do |f|
+      if File.exists?(file)
+        File.open(file, "a") {}
+      else
+        File.write(file, opts[:content])
       end
     end
   end
 
   def write(path, data)
     File.open(path, "w+") do |file|
-      file.write(data)
+      file.write(data) if data
     end
     path
   end
@@ -19,12 +28,33 @@ File.extend File::Write
 module File::Write::Etest
   TESTFILE = "#{__FILE__}.test"
   
+  def setup
+    File.unlink TESTFILE if File.exist?(TESTFILE)
+  end
+
+  def teardown
+    File.unlink TESTFILE if File.exist?(TESTFILE)
+  end
+  
   def test_touches
     assert !File.exist?(TESTFILE)
     File.touch TESTFILE
     assert File.exist?(TESTFILE)
     File.touch TESTFILE
     assert File.exist?(TESTFILE)
+    File.unlink TESTFILE
+    assert !File.exist?(TESTFILE)
+  end
+  
+  def test_touch_w_content
+    assert !File.exist?(TESTFILE)
+
+    File.touch TESTFILE, :content => "TEST CONTENT"
+    assert_equal "TEST CONTENT", File.read(TESTFILE)
+
+    File.touch TESTFILE, :content => "TEST CONTENT2"
+    assert_equal "TEST CONTENT", File.read(TESTFILE)
+
     File.unlink TESTFILE
     assert !File.exist?(TESTFILE)
   end
