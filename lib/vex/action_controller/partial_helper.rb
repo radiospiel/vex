@@ -32,6 +32,18 @@ module ActionController::PartialHelper
       opts[:collection] = locals[:collection]
     end
     
+    #
+    # set up localite??
+    if defined?(Localite) && !(scope = File.basename(partial).gsub(/\..*/, "")).blank?
+      Localite.scope(scope) do 
+        render_vex_partial(opts)
+      end
+    else
+      render_vex_partial(opts)
+    end
+  end
+  
+  def render_vex_partial(opts)
     if self.is_a?(ActionController::Base)
       render_to_string(opts)
     else
@@ -48,3 +60,15 @@ module ActionController::PartialHelper
 end
 
 ActionController::Base.helper ActionController::PartialHelper
+
+class ActionController::Base
+  def render_vex_partial(opts)
+    render_to_string(opts)
+  end
+end
+
+class ActionView::Base
+  def render_vex_partial(opts)
+    render(opts)
+  end
+end
