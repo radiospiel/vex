@@ -38,7 +38,7 @@ module ActiveRecord::FindByExtension
     return models if requested.length == models.length
 
     # TODO: Check locking
-    connection.locked("#{self.class.name}#create") do
+    connection.locked("#{self.name}#create") do
       models = find_all_by(args)
       return models if requested.length == models.length
 
