@@ -47,6 +47,7 @@ module Deep
         o.inject([]) do |r, v|
           v = reject(v, mode, &block)
           r << v unless yield(v)
+          r
         end
       else
         o.dup
@@ -81,9 +82,21 @@ module Deep::Etest
     assert_equal(expected, h.reject_blanks)
   end
 
+  def test_reject_blanks_w_array
+    h = { :a => "a", :b_c => [{ :d => nil}, {:video_test => "video_test "}], "x" => nil, "y" => [] }
+    expected = { :a=>"a", :b_c => [{ :video_test => "video_test " }]}
+    assert_equal(expected, h.reject_blanks)
+  end
+
   def test_camelized_keys
     h = { :a => "a", :b_c => { :d => "dd", :video_test => "video_test "}}
     expected = { "A"=>"a", "BC" => { "VideoTest" => "video_test ", "D" => "dd" }}
+    assert_equal(expected, h.camelize)
+  end
+
+  def test_camelized_keys_w_array
+    h = { :a => "a", :b_c => [{ :d => "dd"}, {:video_test => "video_test "}]}
+    expected = { "A"=>"a", "BC" => [{"D" => "dd" }, { "VideoTest" => "video_test "}]}
     assert_equal(expected, h.camelize)
   end
 

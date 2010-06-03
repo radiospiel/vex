@@ -78,12 +78,23 @@ module App
   #
   # make a sub dir
   def self.subdir(path, *parts)
-    parts.unshift path
-    path = "#{root}/#{parts.join("/")}"
-    return path if File.exists?(path)
-    dlog "Creating dir #{path}"
-    FileUtils.mkdir_p(path)
+    path = "#{root}/#{path}/#{parts.join("/")}"
+    mkdir_and_verify path
+    path
   end
+  
+  private
+  
+  def self.mkdir_and_verify(path)
+    unless File.exists?(path)
+      dlog "Creating dir #{path}"
+      FileUtils.mkdir_p(path)
+    end
+    return if File.directory?(path)
+    raise RuntimeError, "#{path} is not a dir"
+  end
+
+  public 
   
   def self.local_conf
     @local_conf = nil if App.env == "development"
@@ -96,7 +107,28 @@ module App::Etest
     assert_not_nil(App.root)
   end
 
-  def test_app
+  def test_revision
     assert_equal("", App.revision)
+  end
+
+  def test_subdir
+    x = "#{App.root}/test-x"
+    FileUtils.rm_rf x
+
+    path = "#{x}/y"
+    path2 = "#{x}/z"
+
+    assert_equal(path, App.subdir("test-x", :y))
+    assert File.directory?(path)
+
+    #
+    # now try the same with an existing link
+    FileUtils.symlink path, path2
+
+    assert_equal(path2, App.subdir("test-x", :z))
+    assert File.symlink?(path2)
+    assert File.directory?(path2)
+
+    FileUtils.rm_rf x
   end
 end if VEX_TEST == "base"

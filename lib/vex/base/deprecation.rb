@@ -38,4 +38,11 @@ module Deprecation::Etest
     Deprecation.report "Hey"
     Deprecation.report "Hey"
   end
+
+  def test_quiet
+    STDERR.stubs(:puts) { raise "KJH" }
+    Deprecation.quiet do
+      Deprecation.report "Hey"
+    end
+  end
 end if VEX_TEST == "base"

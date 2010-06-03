@@ -4,7 +4,7 @@ module FileUtils::FastCopy
   # or not exist at all.
   def fast_copy(src, dest)
     src_stat = File.stat(src)
-    invalid_argument!(src) unless src_stat.file?
+    invalid_argument!(src, "This is not a file") unless src_stat.file?
     
     dest_stat = begin
       File.stat(dest) 
@@ -31,7 +31,6 @@ FileUtils.extend FileUtils::FastCopy
 
 module FileUtils::FastCopy::Etest
   def test_fast_copy
-    assert File.exist?(__FILE__)
     File.unlink("tmp/somedata.dat") if File.exist?("tmp/somedata.dat")
 
     assert !File.exist?("tmp/somedata.dat")
@@ -58,4 +57,18 @@ module FileUtils::FastCopy::Etest
       FileUtils.fast_copy __FILE__, "tmp/nonexisting/dir"
     }
   end
+
+  def test_fast_copy_slow
+    File.touch("tmp/somedata.dat")
+    assert File.exist?("tmp/somedata.dat")
+
+    File.stubs(:stat).with(__FILE__).returns({ :file => true, :dev => 1 }.slop)
+    File.stubs(:stat).with("tmp/somedata.dat").returns({ :file => true, :dev => 2 }.slop)
+
+    FileUtils.expects(:copy).with(__FILE__, "tmp/somedata.dat")
+    FileUtils.fast_copy __FILE__, "tmp/somedata.dat"
+
+    File.unlink("tmp/somedata.dat")
+  end
+
 end if VEX_TEST == "base"
