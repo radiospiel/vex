@@ -35,7 +35,7 @@ class Hash
           # Return true if the entry exists and evaluates to false
           # Return the entry otherwise.
           key = lookup_sloppy_key($1)
-          return false if !key?(key)
+          return nil if !key?(key)
           return (self[key] || true).slop!
         else
           # fetch the entry, if it exists, or raise an IndexError
@@ -112,7 +112,7 @@ module Hash::Slop::Etest
     assert_equal true, h.a?
     assert_equal true, h.b?
     assert_equal 1, h.c?
-    assert_equal false, h.d?
+    assert_equal nil, h.d?
 
     assert_equal nil, h.a
     assert_equal false, h.b
