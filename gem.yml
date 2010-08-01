@@ -1,0 +1,13 @@
+name: "vex"
+version: "0.4.8"
+summary: "Vex: some ruby extensions"
+description: "Vex: some ruby extensions"
+homepage: http://github.com/pboy/vex  
+author: pboy
+email: eno-pboy@open-lab.org  
+dependencies:
+  - etest
+  - nokogiri
+  - sanitize
+  - htmlentities
+  - json

@@ -46,8 +46,8 @@ task :manifest do
   sh "rake -f tasks/echoe.rake manifest"
 end
 
-SKIP_ECHOE=true
-
 Dir["#{File.dirname(__FILE__)}/tasks/*.rake"].sort.each do |ext| 
   load ext 
 end
+
+load "#{File.dirname(__FILE__)}/vex/gem.rake"

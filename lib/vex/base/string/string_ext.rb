@@ -1,3 +1,6 @@
+require "sanitize"
+require "htmlentities"
+
 module StringExt
   def constantize?
     constantize
