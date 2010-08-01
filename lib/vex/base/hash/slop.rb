@@ -78,6 +78,8 @@ end
 class Object
   def slop
     dup.slop!
+  rescue TypeError # e.g. "Can't dup NilClass"
+    self
   end
   
   def slop!    
