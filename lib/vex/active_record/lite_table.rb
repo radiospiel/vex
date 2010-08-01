@@ -11,19 +11,21 @@ module ActiveRecord::LiteTable
     end
 
     def column(name, type, opts = {})
-      if !existing_column = klass.columns_hash[name.to_s]
-        index_opt = opts.delete :index
-        klass.connection.add_column(klass.table_name, name, type, opts)
-        klass.reset_column_information
-        
-        index(name, :unique => (index == :unique)) if index_opt 
-        return
+      klass.silence do
+        if !existing_column = klass.columns_hash[name.to_s]
+          index_opt = opts.delete :index
+          klass.connection.add_column(klass.table_name, name, type, opts)
+          klass.reset_column_information
+
+          index(name, :unique => (index == :unique)) if index_opt 
+          return
+        end
+
+        return if existing_column.type == type
+
+        raise ColumnTypeMismatch, 
+          "Column type mismatch on #{klass}##{name}: is #{existing_column.type}, but should be #{type}"
       end
-      
-      return if existing_column.type == type
-      
-      raise ColumnTypeMismatch, 
-        "Column type mismatch on #{klass}##{name}: is #{existing_column.type}, but should be #{type}"
     end
 
     def timestamps(*cols)
@@ -55,7 +57,9 @@ module ActiveRecord::LiteTable
     
     def index(column_name, options={})
       begin
-        klass.connection.add_index klass.table_name, column_name, options
+        klass.silence do
+          klass.connection.add_index klass.table_name, column_name, options
+        end
       rescue
         # TODO: It would be *great* to have a unique exception type here!
         # But even in this case we have to check the options for identity!
