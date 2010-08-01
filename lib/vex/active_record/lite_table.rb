@@ -17,7 +17,7 @@ module ActiveRecord::LiteTable
           klass.connection.add_column(klass.table_name, name, type, opts)
           klass.reset_column_information
 
-          index(name, :unique => (index == :unique)) if index_opt 
+          index(name, :unique => (index_opt == :unique)) if index_opt 
           return
         end
 
