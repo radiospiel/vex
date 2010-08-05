@@ -1,4 +1,12 @@
 module ActionController::PartialHelper
+  def self.disable_localite
+    @no_localite = true
+  end
+  
+  def self.localite?
+    defined?(Localite) && !@no_localite
+  end
+
   def partial_for(name)
     case name
     when String then  name
@@ -34,7 +42,7 @@ module ActionController::PartialHelper
     
     #
     # set up localite??
-    if defined?(Localite) && !(scope = File.basename(partial).gsub(/\..*/, "")).blank?
+    if ActionController::PartialHelper.localite? && !(scope = File.basename(partial).gsub(/\..*/, "")).blank?
       Localite.scope(scope) do 
         render_vex_partial(opts)
       end
