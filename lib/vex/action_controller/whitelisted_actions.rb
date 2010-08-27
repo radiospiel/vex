@@ -20,11 +20,15 @@ class ActionController::Base
         return
       end
 
-      error 404, <<-TEXT
+      
+      msg = <<-TEXT
 No such action exists: #{controller_name}##{action_name}.
 Note: this application uses the whitelisted_actions plugin,
 you might have to use the 'actions' method to whitelist your actions.
 TEXT
+
+      logger.warn msg
+      error 404, msg
     end
   end
   
