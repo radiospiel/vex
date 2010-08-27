@@ -20,6 +20,14 @@ module ActionController::Error
     base.rescue_from ActionController::UnknownAction, :with => :rescue_404
   end
 
+  def to_s
+    "#{super}: #{@text}"
+  end
+
+  def inspect
+    "#{super}: #{@text.inspect}"
+  end
+  
   private
 
   def rescue_404
