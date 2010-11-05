@@ -1,5 +1,5 @@
 name: "vex"
-version: "0.5.0"
+version: "0.6.1"
 summary: "Vex: some ruby extensions"
 description: "Vex: some ruby extensions"
 homepage: http://github.com/pboy/vex  

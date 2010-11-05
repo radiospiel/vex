@@ -40,25 +40,9 @@ module ActionController::PartialHelper
       opts[:collection] = locals[:collection]
     end
     
-    #
-    # set up localite??
-    if ActionController::PartialHelper.localite? && !(scope = File.basename(partial).gsub(/\..*/, "")).blank?
-      Localite.scope(scope) do 
-        render_vex_partial(opts)
-      end
-    else
-      render_vex_partial(opts)
-    end
+    render_vex_partial(opts)
   end
   
-  def render_vex_partial(opts)
-    if self.is_a?(ActionController::Base)
-      render_to_string(opts)
-    else
-      render(opts)
-    end
-  end
-
   def partial?(*args)
     partial *args
   rescue ActionView::MissingTemplate
